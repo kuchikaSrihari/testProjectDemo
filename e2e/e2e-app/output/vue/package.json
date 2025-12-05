@@ -1,0 +1,39 @@
+{
+  "name": "@e2e-app/vue",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./vue3": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./vue3/css": "./dist/style.css"
+  },
+  "scripts": {
+    "add-debug": "bash ./scripts/add-debug.sh",
+    "remove-debug": "bash ./scripts/remove-debug.sh",
+    "build": "vite build",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@builder.io/e2e-app": "workspace:*",
+    "@types/node": "^16.11.47",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "^5.3.2",
+    "vite": "^6.2.1",
+    "vue-tsc": "^2.2.8"
+  }
+}

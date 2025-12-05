@@ -1,0 +1,38 @@
+{
+  "name": "@builder.io/e2e-app",
+  "description": "App for verifying Mitosis works, including Playwright specification",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "watch 'yarn build' ./src",
+    "build": "mitosis build",
+    "e2e-old": "ts-node --project tsconfig.node.json e2e",
+    "e2e": "playwright test",
+    "e2e:ui": "npx playwright test --ui",
+    "install:playwright": "playwright install chromium --with-deps",
+    "report": "playwright show-report"
+  },
+  "dependencies": {
+    "@builder.io/mitosis": "workspace:*",
+    "@builder.io/mitosis-cli": "workspace:*",
+    "@playwright/test": "^1.48.0",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.7.0",
+    "@types/node": "^20.12.13",
+    "concurrently": "^7.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "solid-js": "^1.4.5",
+    "solid-styled-components": "^0.28.4",
+    "sync-directory": "^5.1.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2",
+    "vue": "~2.6"
+  },
+  "exports": {
+    "./svelte": "./output/svelte/src/homepage.svelte",
+    "./*": "./output/*/src/index.ts"
+  }
+}

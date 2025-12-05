@@ -1,0 +1,58 @@
+{
+  "name": "@builder.io/mitosis-cli",
+  "version": "0.12.1",
+  "description": "mitosis CLI",
+  "types": "build/types/types.d.ts",
+  "bin": {
+    "mitosis": "bin/mitosis"
+  },
+  "scripts": {
+    "format": "prettier --loglevel warn --write \"**/*.{js,ts,tsx,json}\"",
+    "clean-build": "yarn compile --clean",
+    "compile": "tsc --build --pretty tsconfig.build.json",
+    "tsc-alias": "tsc-alias -p tsconfig.build.json --verbose",
+    "start": "concurrently --kill-others \"tsc --watch\" \"yarn tsc-alias --watch\"",
+    "build": "yarn format && yarn clean-build && yarn compile && yarn tsc-alias",
+    "fix-core-version": "./scripts/fix-core-version.sh",
+    "test:watch": "vitest",
+    "test:watch:update": "yarn test:watch --update",
+    "test": "yarn test:watch run",
+    "test:update": "yarn test --update"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@builder.io/mitosis": "workspace:*",
+    "cosmiconfig": "9.0.0",
+    "debug": "^4.3.4",
+    "dedent": "^0.7.0",
+    "esbuild": "^0.12.16",
+    "fast-glob": "^3.2.11",
+    "fp-ts": "^2.12.2",
+    "fs-extra": "^9.1.0",
+    "gluegun": "latest",
+    "lodash": "^4.17.21",
+    "prettier": "^2.6.1",
+    "ts-morph": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/fs-extra": "^9.0.13",
+    "@types/lodash": "^4.14.180",
+    "@types/node": "^12.7.11",
+    "concurrently": "^8.2.2",
+    "ts-node": "^8.4.1",
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.3.2",
+    "vite": "^3.2.2",
+    "vitest": "^0.34.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BuilderIO/mitosis"
+  },
+  "homepage": "https://github.com/BuilderIO/mitosis"
+}

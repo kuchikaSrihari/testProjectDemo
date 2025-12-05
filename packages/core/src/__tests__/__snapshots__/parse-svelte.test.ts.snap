@@ -1,0 +1,1563 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Parse JSX > basic 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.name = event.target.value",
+              "type": "single",
+            },
+            "value": {
+              "bindingType": "expression",
+              "code": "state.name",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+  Hello! I can run in React, Vue, Solid, or Liquid!
+",
+          },
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "name": {
+      "code": "\\"Steve\\"",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > bindGroup 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.tortilla === 'Plain'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.tortilla = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "radio",
+            "value": "Plain",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.tortilla === 'Whole wheat'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.tortilla = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "radio",
+            "value": "Whole wheat",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.tortilla === 'Spinach'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.tortilla = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "radio",
+            "value": "Spinach",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "br",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "br",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.fillings === 'Rice'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.fillings = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "checkbox",
+            "value": "Rice",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.fillings === 'Beans'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.fillings = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "checkbox",
+            "value": "Beans",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.fillings === 'Cheese'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.fillings = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "checkbox",
+            "value": "Cheese",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "checked": {
+              "bindingType": "expression",
+              "code": "state.fillings === 'Guac (extra)'",
+              "type": "single",
+            },
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.fillings = event.target.value",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "checkbox",
+            "value": "Guac (extra)",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "Tortilla: ",
+              },
+              "scope": {},
+              "slots": {},
+            },
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {
+                "_text": {
+                  "bindingType": "expression",
+                  "code": "state.tortilla",
+                  "type": "single",
+                },
+              },
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {},
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "p",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "Fillings: ",
+              },
+              "scope": {},
+              "slots": {},
+            },
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {
+                "_text": {
+                  "bindingType": "expression",
+                  "code": "state.fillings",
+                  "type": "single",
+                },
+              },
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {},
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "p",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "fillings": {
+      "code": "[]",
+      "type": "property",
+    },
+    "tortilla": {
+      "code": "\\"Plain\\"",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > bindProperty 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "value": {
+          "bindingType": "expression",
+          "code": "state.value",
+          "type": "single",
+        },
+      },
+      "children": [],
+      "meta": {},
+      "name": "input",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "value": {
+      "code": "\\"hello\\"",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > classDirective 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "class": {
+          "bindingType": "expression",
+          "code": "\`form-input \${props.disabled ? 'disabled' : ''} \${state.focus ? 'focus' : ''}\`",
+          "type": "single",
+        },
+      },
+      "children": [],
+      "meta": {},
+      "name": "input",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "defaultProps": {},
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "focus": {
+      "code": "true",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > context 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "_text": {
+              "bindingType": "expression",
+              "code": "state.activeTab",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {
+      "disabled": {
+        "name": "'disabled'",
+        "path": "",
+      },
+    },
+    "set": {
+      "activeTab": {
+        "name": "'activeTab'",
+        "ref": "state.activeTab",
+      },
+    },
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "activeTab": {
+      "code": "0",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > each 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "each": {
+              "bindingType": "expression",
+              "code": "state.numbers",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [
+                {
+                  "@type": "@builder.io/mitosis/node",
+                  "bindings": {
+                    "_text": {
+                      "bindingType": "expression",
+                      "code": "num",
+                      "type": "single",
+                    },
+                  },
+                  "children": [],
+                  "meta": {},
+                  "name": "div",
+                  "properties": {},
+                  "scope": {},
+                  "slots": {},
+                },
+              ],
+              "meta": {},
+              "name": "li",
+              "properties": {},
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "For",
+          "properties": {},
+          "scope": {
+            "forName": "num",
+          },
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "ul",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "numbers": {
+      "code": "[\\"one\\",\\"two\\",\\"three\\"]",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > eventHandlers 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onClick": {
+              "arguments": [
+                "a",
+              ],
+              "bindingType": "expression",
+              "code": "state.log('hi')",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "Log",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "button",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onClick": {
+              "arguments": undefined,
+              "bindingType": "expression",
+              "code": "state.log(event)",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "Log",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "button",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onClick": {
+              "arguments": undefined,
+              "bindingType": "expression",
+              "code": "state.log(event)",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "Log",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "button",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "log": {
+      "arguments": [
+        "msg = 'hello'",
+      ],
+      "code": "function log(msg = 'hello') {
+  console.log(msg);
+}",
+      "type": "function",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > html 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "innerHTML": {
+          "bindingType": "expression",
+          "code": "state.html",
+          "type": "single",
+        },
+      },
+      "children": [],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "html": {
+      "code": "\\"<b>bold</b>\\"",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > ifElse 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "when": {
+          "bindingType": "expression",
+          "code": "state.show",
+          "type": "single",
+        },
+      },
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onClick": {
+              "arguments": undefined,
+              "bindingType": "expression",
+              "code": "state.toggle(event)",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": " Hide ",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "button",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {
+        "else": {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onClick": {
+              "arguments": undefined,
+              "bindingType": "expression",
+              "code": "state.toggle(event)",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": " Show ",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "button",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      },
+      "name": "Show",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "show": {
+      "code": "true",
+      "type": "property",
+    },
+    "toggle": {
+      "code": "function toggle() {
+  state.show = !state.show;
+}",
+      "type": "function",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > imports 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "disabled": {
+              "bindingType": "expression",
+              "code": "state.disabled",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "Slot",
+              "properties": {},
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "Button",
+          "properties": {
+            "type": "button",
+          },
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [
+    {
+      "imports": {
+        "Button": "default",
+      },
+      "path": "./Button.lite",
+    },
+  ],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "disabled": {
+      "code": "false",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > lifecycleHooks 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [
+      {
+        "code": "console.log('onMount')",
+        "deps": "",
+      },
+    ],
+    "onUnMount": {
+      "code": "
+  console.log('onDestroy');
+",
+    },
+    "onUpdate": [
+      {
+        "code": "console.log('onAfterUpdate')",
+        "deps": "",
+      },
+    ],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {},
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > reactive 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "value": {
+              "bindingType": "expression",
+              "code": "state.name",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+  Lowercase: ",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "_text": {
+              "bindingType": "expression",
+              "code": "state.lowercaseName",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "lowercaseName": {
+      "code": "get lowercaseName() {
+  return state.name.toLowerCase();
+}",
+      "type": "getter",
+    },
+    "name": {
+      "code": "\\"Steve\\"",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > reactiveWithFn 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.a = event.target.value",
+              "type": "single",
+            },
+            "value": {
+              "bindingType": "expression",
+              "code": "state.a",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "number",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "onChange": {
+              "arguments": [
+                "event",
+              ],
+              "bindingType": "expression",
+              "code": "state.b = event.target.value",
+              "type": "single",
+            },
+            "value": {
+              "bindingType": "expression",
+              "code": "state.b",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "input",
+          "properties": {
+            "type": "number",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+  Result: ",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "_text": {
+              "bindingType": "expression",
+              "code": "state.result",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+    "onUpdate": [
+      {
+        "code": "state.calculateResult(state.a, state.b)",
+        "deps": "[state.a, state.b]",
+      },
+    ],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "a": {
+      "code": "2",
+      "type": "property",
+    },
+    "b": {
+      "code": "5",
+      "type": "property",
+    },
+    "calculateResult": {
+      "arguments": [
+        "a_",
+        "b_",
+      ],
+      "code": "function calculateResult(a_, b_) {
+  state.result = a_ * b_;
+}",
+      "type": "function",
+    },
+    "result": {
+      "code": "null",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > slots 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "default",
+              },
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "Slot",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [
+                {
+                  "@type": "@builder.io/mitosis/node",
+                  "bindings": {},
+                  "children": [],
+                  "meta": {},
+                  "name": "div",
+                  "properties": {
+                    "_text": "default",
+                  },
+                  "scope": {},
+                  "slots": {},
+                },
+              ],
+              "meta": {},
+              "name": "div",
+              "properties": {},
+              "scope": {},
+              "slots": {},
+            },
+          ],
+          "meta": {},
+          "name": "Slot",
+          "properties": {
+            "name": "Test",
+          },
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {},
+  "style": undefined,
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > style 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [],
+      "meta": {},
+      "name": "input",
+      "properties": {
+        "class": "form-input",
+      },
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {},
+  "style": "
+  input {
+    color: red;
+    font-size: 12px;
+  }
+
+  .form-input:focus {
+    outline: 1px solid blue;
+  }
+",
+  "subComponents": [],
+}
+`;
+
+exports[`Parse JSX > textExpressions 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+  normal:
+  ",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "_text": {
+              "bindingType": "expression",
+              "code": "state.a + state.b",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "br",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+  conditional
+  ",
+          },
+          "scope": {},
+          "slots": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "_text": {
+              "bindingType": "expression",
+              "code": "state.a > 2 ? 'hello' : 'bye'",
+              "type": "single",
+            },
+          },
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {},
+          "scope": {},
+          "slots": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+      "slots": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyComponent",
+  "refs": {},
+  "state": {
+    "a": {
+      "code": "5",
+      "type": "property",
+    },
+    "b": {
+      "code": "12",
+      "type": "property",
+    },
+  },
+  "style": undefined,
+  "subComponents": [],
+}
+`;

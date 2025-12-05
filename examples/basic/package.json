@@ -1,0 +1,25 @@
+{
+  "name": "@builder.io/basic-example",
+  "private": true,
+  "scripts": {
+    "mitosis": "mitosis build",
+    "build": "yarn run mitosis",
+    "start": "watch 'yarn run mitosis' ./src ./overrides"
+  },
+  "dependencies": {
+    "@builder.io/mitosis": "workspace:*",
+    "@builder.io/mitosis-cli": "workspace:*",
+    "node-fetch": "^2.6.1",
+    "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "@builder.io/eslint-plugin-mitosis": "workspace:*",
+    "@types/node-fetch": "^2.5.12",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.17.0",
+    "prettier": "^2.5.0",
+    "typescript": "^5.3.2",
+    "watch": "^1.0.2"
+  }
+}
