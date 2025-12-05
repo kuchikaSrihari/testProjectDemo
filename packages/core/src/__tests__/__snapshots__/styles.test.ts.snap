@@ -1,0 +1,216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Styles > class and CSS are merged 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "css": {
+          "bindingType": "expression",
+          "code": "{
+  padding: '10px'
+}",
+          "type": "single",
+        },
+      },
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    ",
+          },
+          "scope": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {
+        "class": "test",
+      },
+      "scope": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "exports": {},
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyBasicComponent",
+  "refs": {},
+  "state": {},
+  "subComponents": [],
+}
+`;
+
+exports[`Styles > class and className are merged 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {},
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "
+        Hello! I can run in React, Vue, Solid, or Liquid!
+      ",
+              },
+              "scope": {},
+            },
+          ],
+          "meta": {},
+          "name": "MyComp",
+          "properties": {
+            "class": "test",
+            "className": "test2",
+          },
+          "scope": {},
+        },
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {
+            "css": {
+              "bindingType": "expression",
+              "code": "{
+  padding: '10px'
+}",
+              "type": "single",
+            },
+          },
+          "children": [
+            {
+              "@type": "@builder.io/mitosis/node",
+              "bindings": {},
+              "children": [],
+              "meta": {},
+              "name": "div",
+              "properties": {
+                "_text": "
+        Hello! I can run in React, Vue, Solid, or Liquid!
+      ",
+              },
+              "scope": {},
+            },
+          ],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "class": "test2 test",
+          },
+          "scope": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {},
+      "scope": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "exports": {},
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [
+    {
+      "importKind": "value",
+      "imports": {
+        "MyComp": "default",
+      },
+      "path": "./my-component.lite",
+    },
+  ],
+  "inputs": [],
+  "meta": {},
+  "name": "MyBasicComponent",
+  "refs": {},
+  "state": {},
+  "subComponents": [],
+}
+`;
+
+exports[`Styles > className and CSS are merged 1`] = `
+{
+  "@type": "@builder.io/mitosis/component",
+  "children": [
+    {
+      "@type": "@builder.io/mitosis/node",
+      "bindings": {
+        "css": {
+          "bindingType": "expression",
+          "code": "{
+  padding: '10px'
+}",
+          "type": "single",
+        },
+      },
+      "children": [
+        {
+          "@type": "@builder.io/mitosis/node",
+          "bindings": {},
+          "children": [],
+          "meta": {},
+          "name": "div",
+          "properties": {
+            "_text": "
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    ",
+          },
+          "scope": {},
+        },
+      ],
+      "meta": {},
+      "name": "div",
+      "properties": {
+        "class": "test",
+      },
+      "scope": {},
+    },
+  ],
+  "context": {
+    "get": {},
+    "set": {},
+  },
+  "exports": {},
+  "hooks": {
+    "onEvent": [],
+    "onMount": [],
+  },
+  "imports": [],
+  "inputs": [],
+  "meta": {},
+  "name": "MyBasicComponent",
+  "refs": {},
+  "state": {},
+  "subComponents": [],
+}
+`;

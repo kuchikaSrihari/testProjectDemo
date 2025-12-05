@@ -1,0 +1,165 @@
+# This workflow runs when new change is pushed to repo OR when a new PR is created
+# It performs all of the tests to make sure everything is good.
+
+---
+name: PR Runner
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+env:
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: Lint
+        run: yarn ci:lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: Build
+        run: yarn ci:build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: Run tests
+        run: yarn ci:test
+
+  test-update:
+    if: always() && (needs.test.result == 'failure')
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: 🏃🆙⏲️ Run test-update
+        run: yarn test:update
+
+      - name: 🆙 Upload snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshots-updates
+          path: ./packages/core/src/**/__snapshots__
+          retention-days: 30
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: Build Site
+        run: yarn g:nx build @builder.io/mitosis-site
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+        with:
+          cache-node-modules: true
+          cache-install-state: true
+
+      - name: Build
+        run: yarn ci:build
+
+      - name: Run E2E tests
+        run: yarn ci:e2e
+
+      - name: 🆙 Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: ./e2e/e2e-app/test-results
+          retention-days: 14
+
+      - name: 🆙 Upload e2e builds
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-builds
+          path: |
+            ./e2e/**/dist
+            !**/node_modules/**
+          retention-days: 14
