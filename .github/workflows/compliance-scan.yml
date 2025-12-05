@@ -1,0 +1,287 @@
+name: AI Compliance Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main, master, develop]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  compliance-scan:
+    name: 🛡️ Compliance Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Changed Files
+        id: files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: '**/*.{java,py,js,ts,tf,yaml,yml,json}'
+
+      - name: Cleanup Old Summary Comments
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Delete ONLY old summary comments (keep inline review comments on code)
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            
+            let deleted = 0;
+            for (const c of comments) {
+              if (c.user?.login === 'github-actions[bot]') {
+                try {
+                  await github.rest.issues.deleteComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    comment_id: c.id
+                  });
+                  deleted++;
+                  console.log(`Deleted summary comment: ${c.id}`);
+                } catch (e) {
+                  console.log(`Failed to delete ${c.id}: ${e.message}`);
+                }
+              }
+            }
+            console.log(`Deleted ${deleted} old summary comments`);
+            
+            // Also delete old review BODIES (the "suggested changes" headers)
+            // but this keeps the inline comments on specific lines
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            for (const review of reviews) {
+              if (review.user?.login === 'github-actions[bot]' && review.state !== 'PENDING') {
+                try {
+                  // Dismiss old reviews to clean up "suggested changes" messages
+                  await github.rest.pulls.dismissReview({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: context.issue.number,
+                    review_id: review.id,
+                    message: 'Superseded by new scan'
+                  });
+                  console.log(`Dismissed review: ${review.id}`);
+                } catch (e) {
+                  console.log(`Could not dismiss review ${review.id}: ${e.message}`);
+                }
+              }
+            }
+            
+            console.log('Cleanup complete');
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install google-generativeai
+
+      - name: Run Scan
+        id: scan
+        env:
+          CHANGED_FILES: ${{ steps.files.outputs.all_changed_files }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python .github/scripts/compliance_scanner.py
+
+      - name: Post Inline Comments
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('scan_report.json')) return;
+            
+            const report = JSON.parse(fs.readFileSync('scan_report.json', 'utf8'));
+            const findings = [...(report.blocking_issues || []), ...(report.suggestions || [])];
+            
+            if (findings.length === 0) {
+              console.log('No findings to post');
+              return;
+            }
+            
+            // Get PR info for commit SHA
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            // Build inline comments with enhanced details
+            const comments = [];
+            for (const f of findings) {
+              if (!f.file || !f.line) continue;
+              
+              const sev = (f.severity || 'low').toUpperCase();
+              const icon = sev === 'CRITICAL' ? '🔴' : sev === 'HIGH' ? '🟠' : sev === 'MEDIUM' ? '🟡' : '🔵';
+              
+              let body = `### ${icon} ${sev}: ${f.title}\n\n`;
+              
+              // Risk metrics (SCF-VULN-15)
+              body += `| Metric | Value |\n|--------|-------|\n`;
+              if (f.cvss_score) body += `| CVSS Score | ${f.cvss_score} |\n`;
+              if (f.exploitability) body += `| Exploitability | ${f.exploitability} |\n`;
+              if (f.owasp_category) body += `| OWASP | ${f.owasp_category} |\n`;
+              if (f.cwe_id) body += `| CWE | ${f.cwe_id} |\n`;
+              if (f.cve_id) body += `| CVE | ${f.cve_id} |\n`;
+              if (f.scf_control) body += `| SCF Control | ${f.scf_control} |\n`;
+              body += `\n`;
+              
+              // Business impact
+              if (f.business_impact) {
+                body += `**Business Impact:** ${f.business_impact}\n\n`;
+              }
+              
+              // Issue description
+              body += `**Issue:** ${f.description || 'Security issue detected'}\n\n`;
+              
+              // Remediation with SLA (SCF-GRC-14)
+              body += `**Remediation:** ${f.remediation || 'Review and fix'}\n\n`;
+              if (f.remediation_sla) {
+                body += `⏰ **SLA:** ${f.remediation_sla}\n\n`;
+              }
+              
+              // Code fix if available
+              if (f.code_fix) {
+                body += `<details><summary>📝 Suggested Fix</summary>\n\n\`\`\`\n${f.code_fix}\n\`\`\`\n</details>\n`;
+              }
+              
+              comments.push({
+                path: f.file,
+                line: parseInt(f.line) || 1,
+                body: body
+              });
+            }
+            
+            // Create review with inline comments
+            if (comments.length > 0) {
+              try {
+                await github.rest.pulls.createReview({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  commit_id: pr.head.sha,
+                  event: 'COMMENT',
+                  comments: comments.slice(0, 30)
+                });
+                console.log(`Posted ${comments.length} inline comments`);
+              } catch (e) {
+                console.log('Failed to post inline comments:', e.message);
+              }
+            }
+
+      - name: Post Summary Comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('scan_report.json')) return;
+            
+            const report = JSON.parse(fs.readFileSync('scan_report.json', 'utf8'));
+            const findings = [...(report.blocking_issues || []), ...(report.suggestions || [])];
+            const s = report.summary || {};
+            const ai = report.ai_insights || {};
+            const rm = report.risk_metrics || {};
+            const comp = report.compliance || {};
+            const slas = report.remediation_slas || {};
+            
+            // Build summary header
+            let summary = report.decision === 'BLOCK' 
+              ? '## 🚫 Compliance Check Failed\n\n' 
+              : '## ✅ Compliance Check Passed\n\n';
+            
+            // Risk metrics table (SCF-GRC-01)
+            summary += `### 📊 Risk Assessment (SCF-GRC-01)\n\n`;
+            summary += `| Severity | Count | SLA | | Risk Metric | Value |\n`;
+            summary += `|----------|-------|-----|-|-------------|-------|\n`;
+            summary += `| 🔴 Critical | ${s.critical || 0} | Immediate | | Risk Score | ${rm.risk_score || ai.risk_score || 0}/10 |\n`;
+            summary += `| 🟠 High | ${s.high || 0} | 7 days | | Max CVSS | ${rm.max_cvss || 'N/A'} |\n`;
+            summary += `| 🟡 Medium | ${s.medium || 0} | 30 days | | Avg CVSS | ${rm.avg_cvss || 'N/A'} |\n`;
+            summary += `| 🔵 Low | ${s.low || 0} | 90 days | | Files Scanned | ${ai.files_scanned || 0} |\n\n`;
+            
+            // Executive summary
+            if (ai.executive_summary) {
+              summary += `### 📋 Executive Summary\n> ${ai.executive_summary}\n\n`;
+            }
+            
+            // OWASP Coverage (SCF-VULN-04)
+            const owaspCats = comp.owasp_categories || [];
+            if (owaspCats.length > 0) {
+              summary += `### 🎯 OWASP Top 10 Coverage (SCF-VULN-04)\n`;
+              summary += `**Categories Detected:** ${owaspCats.join(', ')}\n\n`;
+            }
+            
+            // SCF Controls (SCF-GRC-03)
+            const scfControls = comp.scf_controls_violated || [];
+            if (scfControls.length > 0) {
+              summary += `### 🏛️ SCF Controls Violated (SCF-GRC-03)\n`;
+              summary += `| Control | Description |\n|---------|-------------|\n`;
+              const controlDescs = {
+                'CRY-03': 'Secret Management', 'CRY-01': 'Cryptographic Controls',
+                'TDA-02': 'Secure Coding', 'IAC-01': 'Least Privilege',
+                'NET-01': 'Network Security', 'LOG-01': 'Audit Logging',
+                'VULN-11': 'Vulnerability Identification', 'VULN-14': 'SCA/Container Security'
+              };
+              scfControls.forEach(c => {
+                summary += `| ${c} | ${controlDescs[c] || 'Security Control'} |\n`;
+              });
+              summary += `\n`;
+            }
+            
+            // Remediation SLAs (SCF-GRC-14)
+            if (slas.immediate > 0 || slas['7_days'] > 0) {
+              summary += `### ⏰ Remediation Required (SCF-GRC-14)\n`;
+              if (slas.immediate > 0) summary += `- **${slas.immediate} issues** require immediate remediation\n`;
+              if (slas['7_days'] > 0) summary += `- **${slas['7_days']} issues** must be fixed within 7 days\n`;
+              summary += `\n`;
+            }
+            
+            summary += `📍 **See inline comments on code for detailed findings and fixes**\n\n`;
+            
+            // Audit Evidence (SCF-GRC-03)
+            summary += `<details><summary>📁 Audit Evidence (SCF-GRC-03: Control Assessment)</summary>\n\n`;
+            summary += `| Field | Value |\n|-------|-------|\n`;
+            summary += `| Scan Time | ${new Date().toISOString()} |\n`;
+            summary += `| PR | #${context.issue.number} |\n`;
+            summary += `| Commit | ${context.payload.pull_request?.head?.sha?.substring(0, 7) || 'N/A'} |\n`;
+            summary += `| Branch | ${context.payload.pull_request?.head?.ref || 'N/A'} |\n`;
+            summary += `| Frameworks | ${(comp.frameworks_checked || ['SCF', 'SOC2', 'HIPAA', 'PCI-DSS']).join(', ')} |\n`;
+            summary += `| AI Model | Google Gemini 2.0 Flash |\n`;
+            summary += `</details>\n\n`;
+            
+            summary += `---\n*🤖 AI Compliance-as-Code Bot v2.0 | Enterprise Security Analysis*`;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+      - name: Enforce Compliance Gate
+        if: always()
+        run: |
+          if [ -f scan_report.json ]; then
+            DECISION=$(cat scan_report.json | python3 -c "import sys, json; print(json.load(sys.stdin).get('decision', 'ALLOW'))")
+            echo "Compliance Decision: $DECISION"
+            if [ "$DECISION" = "BLOCK" ]; then
+              echo "::error::🚫 COMPLIANCE CHECK FAILED - Critical/High severity issues found. PR cannot be merged."
+              exit 1
+            fi
+          fi
+          echo "✅ Compliance check passed"
