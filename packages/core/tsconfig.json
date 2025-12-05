@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "lib": ["es7", "dom", "esnext", "esnext.asynciterable"],
+    "composite": true,
+    "outDir": "dist",
+    "strict": true,
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "declaration": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "exactOptionalPropertyTypes": false,
+    "esModuleInterop": true,
+    "target": "ES2018",
+    "baseUrl": ".",
+    "paths": {
+      "@builder.io/mitosis": ["./src"],
+      "@/*": ["./src/*"],
+      // To avoid error from moduleResolution: NodeNext
+      "svelte/types/compiler/interfaces": [
+        "./node_modules/svelte/types/compiler/interfaces",
+        "../../node_modules/svelte/types/compiler/interfaces"
+      ]
+    },
+    "jsxImportSource": "@builder.io/mitosis",
+    "types": ["vitest/globals"]
+  },
+  "include": ["./src", "./typings.d.ts", "./jsx-runtime.d.ts"],
+  "exclude": ["src/**/*.raw.tsx", "src/**/*.raw.svelte"]
+}

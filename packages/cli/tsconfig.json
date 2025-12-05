@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": false,
+    "target": "es5",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "rootDir": "./src",
+    "jsxImportSource": "@builder.io/mitosis"
+  },
+  "include": ["src/**/*"]
+}

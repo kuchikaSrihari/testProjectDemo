@@ -1,0 +1,20 @@
+{
+  "name": "@builder.io/e2e-alpine",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "yarn run check && vite build",
+    "check": "echo 'TODO: Alpine.js check script.'",
+    "dev": "vite",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@builder.io/e2e-app": "workspace:*"
+  },
+  "devDependencies": {
+    "alpinejs": "^3.10.5",
+    "rimraf": "^3.0.2",
+    "vite": "^3.2.2",
+    "vite-plugin-handlebars": "^1.6.0"
+  }
+}

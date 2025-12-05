@@ -1,0 +1,8210 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vue > jsx > Javascript Test > Advanced 1`] = `
+"<template>
+  <main>
+    <template :key=\\"i\\" v-for=\\"(person, i) in names\\">
+      <div>{{ i }}: {{ person }}</div> </template
+    ><template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <span>{{ person }}</span> </template
+    ><template :key=\\"index\\" v-for=\\"(_, index) in names\\">
+      <br /> </template
+    ><template
+      :key=\\"ee\\"
+      v-for=\\"(_, ee) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <pre>{{ ee }}</pre></template
+    ><template
+      :key=\\"index\\"
+      v-for=\\"(_, index) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <p>{{ index }}</p> </template
+    ><template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <span>{{ person }}{{ index }}</span> </template
+    ><template
+      :key=\\"count\\"
+      v-for=\\"(person, count) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <span>{{ person }}{{ count }}</span> </template
+    ><template :key=\\"i\\" v-for=\\"(person, i) in names\\">
+      <span>{{ person }}{{ i }}</span> </template
+    ><template
+      :key=\\"index\\"
+      v-for=\\"(person, index) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <span>{{ person }}{{ index }}</span>
+    </template>
+  </main>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > AdvancedRef 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"showInput\\">
+      <input
+        class=\\"input\\"
+        ref=\\"inputRef\\"
+        :value=\\"name\\"
+        @blur=\\"async (event) => onBlur()\\"
+        @change=\\"async (event) => (name = event.target.value)\\"
+      />
+      <label for=\\"cars\\" ref=\\"inputNoArgRef\\"> Choose a car: </label>
+      <select name=\\"cars\\" id=\\"cars\\">
+        <option value=\\"supra\\">GR Supra</option>
+        <option value=\\"86\\">GR 86</option>
+      </select>
+    </template>
+
+    Hello
+    {{ lowerCaseName() }}! I can run in React, Qwik, Vue, Solid, or Web
+    Component!
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+const props = defineProps([\\"showInput\\"]);
+const name = ref(\\"PatrickJS\\");
+
+const inputRef = ref(null);
+const inputNoArgRef = ref(null);
+
+watch(
+  () => [inputRef.value, inputNoArgRef.value],
+  () => {
+    console.log(\\"Received an update\\");
+  },
+  { immediate: true }
+);
+function onBlur() {
+  // Maintain focus
+  inputRef.value.focus();
+}
+function lowerCaseName() {
+  return name.value.toLowerCase();
+}
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic 1`] = `
+"<template>
+  <div class=\\"test div\\">
+    <input
+      :value=\\"DEFAULT_VALUES.name || name\\"
+      @change=\\"async (myEvent) => (name = myEvent.target.value)\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid! &gt;
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+export const DEFAULT_VALUES = {
+  name: \\"Steve\\",
+};
+
+const name = ref(\\"Steve\\");
+const age = ref(1);
+const sports = ref([\\"\\"]);
+
+function underscore_fn_name() {
+  return \\"bar\\";
+}
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic 2`] = `
+"<template>
+  <div>
+    <template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <template v-if=\\"person === name\\">
+        <input
+          :value=\\"name\\"
+          @change=\\"
+            async (event) => {
+              name = event.target.value + ' and ' + person;
+            }
+          \\"
+        />
+
+        Hello
+        {{ person }}
+        ! I can run in Qwik, Web Component, React, Vue, Solid, or Liquid!
+      </template>
+    </template>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic Context 1`] = `
+"<template>
+  <div>
+    {{ myService.method(\\"hello\\") + name }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+    <input @change=\\"async (event) => onChange()\\" />
+  </div>
+</template>
+
+<script setup>
+import { inject, onMounted, provide, ref } from \\"vue\\";
+
+import { Injector, MyService, createInjector } from \\"@dummy/injection-js\\";
+
+const name = ref(\\"PatrickJS\\");
+
+const myService = inject(MyService.key);
+
+provide(Injector.key, createInjector());
+
+const hi = myService.method(\\"hi\\");
+console.log(hi);
+onMounted(() => {
+  const bye = myService.method(\\"hi\\");
+  console.log(bye);
+});
+
+function onChange() {
+  const change = myService.method(\\"change\\");
+  console.log(change);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic OnMount Update 1`] = `
+"<template>
+  <div>Hello {{ name }}</div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"bye\\", \\"hi\\"]);
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+
+name.value = \\"PatrickJS onInit\\" + props.hi;
+onMounted(() => {
+  name.value = \\"PatrickJS onMount\\" + props.bye;
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic Outputs 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"onMessageChange\\", \\"onEvent\\", \\"message\\"]);
+const name = ref(\\"PatrickJS\\");
+
+onMounted(() => {
+  props.onMessageChange(name.value);
+  props.onEvent(props.message);
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Basic Outputs Meta 1`] = `
+"/** useMetadata: {\\"outputs\\":[\\"onMessage\\",\\"onEvent\\"],\\"baz\\":\\"metadata inside
+component\\"} */
+
+<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"onMessageChange\\", \\"onEvent\\", \\"message\\"]);
+const name = ref(\\"PatrickJS\\");
+
+onMounted(() => {
+  props.onMessageChange(name.value);
+  props.onEvent(props.message);
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicAttribute 1`] = `
+"<template>
+  <input autocapitalize=\\"on\\" autocomplete=\\"on\\" :spellcheck=\\"true\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicBooleanAttribute 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"$slots.default\\">
+      <slot />
+      {{ type }}
+    </template>
+
+    <MyBooleanAttributeComponent :toggle=\\"true\\"></MyBooleanAttributeComponent
+    ><MyBooleanAttributeComponent :toggle=\\"true\\"></MyBooleanAttributeComponent
+    ><MyBooleanAttributeComponent :list=\\"null\\"></MyBooleanAttributeComponent>
+  </div>
+</template>
+
+<script setup>
+import MyBooleanAttributeComponent from \\"./basic-boolean-attribute-component.raw\\";
+
+const props = defineProps([\\"children\\", \\"type\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicChildComponent 1`] = `
+"<template>
+  <div>
+    <MyBasicComponent :id=\\"dev\\"></MyBasicComponent>
+    <div>
+      <MyBasicOnMountUpdateComponent
+        :hi=\\"name\\"
+        :bye=\\"dev\\"
+      ></MyBasicOnMountUpdateComponent
+      ><MyBasicOutputsComponent
+        message=\\"Test\\"
+        :onMessageChange=\\"(name) => (name = name)\\"
+        :onEvent=\\"(event) => log('Test')\\"
+      ></MyBasicOutputsComponent>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+import MyBasicOnMountUpdateComponent from \\"./basic-onMount-update.raw\\";
+import MyBasicOutputsComponent from \\"./basic-outputs.raw\\";
+import MyBasicComponent from \\"./basic.raw\\";
+
+const name = ref(\\"Steve\\");
+const dev = ref(\\"PatrickJS\\");
+
+function log(message) {
+  console.log(message);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicFor 1`] = `
+"<template>
+  <div>
+    <template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <input
+        :value=\\"name\\"
+        @change=\\"
+          async (event) => {
+            name = event.target.value + ' and ' + person;
+          }
+        \\"
+      />
+
+      Hello
+      {{ person }}
+      ! I can run in Qwik, Web Component, React, Vue, Solid, or Liquid!
+    </template>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+
+onMounted(() => {
+  console.log(\\"onMount code\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicRef 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"showInput\\">
+      <input
+        class=\\"input\\"
+        ref=\\"inputRef\\"
+        :value=\\"name\\"
+        @blur=\\"async (event) => onBlur()\\"
+        @change=\\"async (event) => (name = event.target.value)\\"
+      />
+      <label for=\\"cars\\" ref=\\"inputNoArgRef\\"> Choose a car: </label>
+      <select name=\\"cars\\" id=\\"cars\\">
+        <option value=\\"supra\\">GR Supra</option>
+        <option value=\\"86\\">GR 86</option>
+      </select>
+    </template>
+
+    Hello
+    {{ lowerCaseName() }}! I can run in React, Qwik, Vue, Solid, or Web
+    Component!
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"showInput\\"]);
+const name = ref(\\"PatrickJS\\");
+
+const inputRef = ref(null);
+const inputNoArgRef = ref(null);
+
+function onBlur() {
+  // Maintain focus
+  inputRef.value?.focus();
+}
+function lowerCaseName() {
+  return name.value.toLowerCase();
+}
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicRefAssignment 1`] = `
+"<template>
+  <div><button @click=\\"await handlerClick($event)\\">Click</button></div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const holdValueRef = ref(null);
+
+function handlerClick(event) {
+  event.preventDefault();
+  console.log(\\"current value\\", holdValueRef.value);
+  holdValueRef.value = holdValueRef.value + \\"JS\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > BasicRefPrevious 1`] = `
+"<template>
+  <div>
+    <h1>Now: {{ count }}, before: {{ prevCount }}</h1>
+    <button @click=\\"async (event) => (count += 1)\\">Increment</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+export function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  let ref = useRef(null); // Store current value in ref
+
+  onUpdate(() => {
+    ref = value;
+  }, [value]); // Only re-run if value changes
+  // Return previous value (happens before update in useEffect above)
+
+  return ref;
+}
+
+const count = ref(0);
+
+const prevCount = ref(null);
+
+watch(
+  () => [count.value],
+  () => {
+    prevCount.value = count.value;
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Button 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button type=\\"button\\" v-bind=\\"attributes\\">{{ text }}</button>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"link\\", \\"attributes\\", \\"openLinkInNewTab\\", \\"text\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Columns 1`] = `
+"<template>
+  <div class=\\"builder-columns div\\">
+    <template :key=\\"index\\" v-for=\\"(column, index) in columns\\">
+      <div class=\\"builder-column div-2\\">{{ column.content }}{{ index }}</div>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"columns\\", \\"space\\"]);
+
+function getColumns() {
+  return props.columns || [];
+}
+function getGutterSize() {
+  return typeof props.space === \\"number\\" ? props.space || 0 : 20;
+}
+function getWidth(index) {
+  const columns = getColumns();
+  return (columns[index] && columns[index].width) || 100 / columns.length;
+}
+function getColumnCssWidth(index) {
+  const columns = getColumns();
+  const gutterSize = getGutterSize();
+  const subtractWidth = (gutterSize * (columns.length - 1)) / columns.length;
+  return \`calc(\${getWidth(index)}% - \${subtractWidth}px)\`;
+}
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+}
+@media (max-width: 999px) {
+  .div {
+    flex-direction: row;
+  }
+}
+@media (max-width: 639px) {
+  .div {
+    flex-direction: row-reverse;
+  }
+}
+.div-2 {
+  flex-grow: 1;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > ContentSlotHtml 1`] = `
+"<template>
+  <div>
+    <slot name=\\"testing\\"></slot>
+    <div><hr /></div>
+    <div><slot /></div>
+  </div>
+</template>
+
+<script setup>
+import { useSlots } from \\"vue\\";
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > ContentSlotJSX 1`] = `
+"<template>
+  <template v-if=\\"$slots.reference\\">
+    <div
+      :name=\\"$slots.content ? 'name1' : 'name2'\\"
+      :title=\\"$slots.content ? 'title1' : 'title2'\\"
+      @click=\\"async (event) => show()\\"
+      :class=\\"cls\\"
+      v-bind=\\"attributes\\"
+    >
+      <template v-if=\\"showContent && $slots.content\\">
+        <slot name=\\"content\\">{{ content }}</slot>
+      </template>
+
+      <div><hr /></div>
+      <div><slot /></div>
+    </div>
+  </template>
+</template>
+
+<script setup>
+import { computed, ref, useSlots } from \\"vue\\";
+
+const props = withDefaults(defineProps(), {
+  children: undefined,
+  attributes: undefined,
+  content: \\"\\",
+});
+const name = ref(\\"king\\");
+const showContent = ref(false);
+
+const cls = computed(() => {
+  return useSlots().content && useSlots().default
+    ? \`\${name.value}-content\`
+    : \\"\\";
+});
+
+function show() {
+  useSlots().content ? 1 : \\"\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > CustomCode 1`] = `
+"<template>
+  <div
+    ref=\\"elem\\"
+    :class=\\"'builder-custom-code' + (replaceNodes ? ' replace-nodes' : '')\\"
+    v-html=\\"code\\"
+  ></div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"replaceNodes\\", \\"code\\"]);
+const scriptsInserted = ref([]);
+const scriptsRun = ref([]);
+
+const elem = ref(null);
+
+onMounted(() => {
+  findAndRunScripts();
+});
+
+function findAndRunScripts() {
+  // TODO: Move this function to standalone one in '@builder.io/utils'
+  if (elem.value && typeof window !== \\"undefined\\") {
+    /** @type {HTMLScriptElement[]} */
+    const scripts = elem.value.getElementsByTagName(\\"script\\");
+
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+
+      if (script.src) {
+        if (scriptsInserted.value.includes(script.src)) {
+          continue;
+        }
+
+        scriptsInserted.value.push(script.src);
+        const newScript = document.createElement(\\"script\\");
+        newScript.async = true;
+        newScript.src = script.src;
+        document.head.appendChild(newScript);
+      } else if (
+        !script.type ||
+        [
+          \\"text/javascript\\",
+          \\"application/javascript\\",
+          \\"application/ecmascript\\",
+        ].includes(script.type)
+      ) {
+        if (scriptsRun.value.includes(script.innerText)) {
+          continue;
+        }
+
+        try {
+          scriptsRun.value.push(script.innerText);
+          new Function(script.innerText)();
+        } catch (error) {
+          console.warn(\\"\`CustomCode\`: Error running script:\\", error);
+        }
+      }
+    }
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Embed 1`] = `
+"<template>
+  <div
+    ref=\\"elem\\"
+    :class=\\"'builder-custom-code' + (replaceNodes ? ' replace-nodes' : '')\\"
+    v-html=\\"code\\"
+  ></div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"replaceNodes\\", \\"code\\"]);
+const scriptsInserted = ref([]);
+const scriptsRun = ref([]);
+
+const elem = ref(null);
+
+onMounted(() => {
+  findAndRunScripts();
+});
+
+function findAndRunScripts() {
+  // TODO: Move this function to standalone one in '@builder.io/utils'
+  if (elem.value && typeof window !== \\"undefined\\") {
+    /** @type {HTMLScriptElement[]} */
+    const scripts = elem.value.getElementsByTagName(\\"script\\");
+
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+
+      if (script.src) {
+        if (scriptsInserted.value.includes(script.src)) {
+          continue;
+        }
+
+        scriptsInserted.value.push(script.src);
+        const newScript = document.createElement(\\"script\\");
+        newScript.async = true;
+        newScript.src = script.src;
+        document.head.appendChild(newScript);
+      } else if (
+        !script.type ||
+        [
+          \\"text/javascript\\",
+          \\"application/javascript\\",
+          \\"application/ecmascript\\",
+        ].includes(script.type)
+      ) {
+        if (scriptsRun.value.includes(script.innerText)) {
+          continue;
+        }
+
+        try {
+          scriptsRun.value.push(script.innerText);
+          new Function(script.innerText)();
+        } catch (error) {
+          console.warn(\\"\`CustomCode\`: Error running script:\\", error);
+        }
+      }
+    }
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Form 1`] = `
+"<template>
+  <form
+    :validate=\\"validate\\"
+    ref=\\"formRef\\"
+    :action=\\"!sendWithJs && action\\"
+    :method=\\"method\\"
+    :name=\\"name\\"
+    @submit=\\"async (event) => onSubmit(event)\\"
+    v-bind=\\"attributes\\"
+  >
+    <template v-if=\\"builderBlock && builderBlock.children\\">
+      <template
+        :key=\\"block.id\\"
+        v-for=\\"(block, index) in builderBlock?.children\\"
+      >
+        <BuilderBlockComponent
+          :block=\\"block\\"
+          :index=\\"index\\"
+        ></BuilderBlockComponent>
+      </template>
+    </template>
+
+    <template v-if=\\"submissionState === 'error'\\">
+      <BuilderBlocks
+        dataPath=\\"errorMessage\\"
+        :blocks=\\"errorMessage\\"
+      ></BuilderBlocks>
+    </template>
+
+    <template v-if=\\"submissionState === 'sending'\\">
+      <BuilderBlocks
+        dataPath=\\"sendingMessage\\"
+        :blocks=\\"sendingMessage\\"
+      ></BuilderBlocks>
+    </template>
+
+    <template v-if=\\"submissionState === 'error' && responseData\\">
+      <pre class=\\"builder-form-error-text pre\\">{{
+        JSON.stringify(responseData, null, 2)
+      }}</pre>
+    </template>
+
+    <template v-if=\\"submissionState === 'success'\\">
+      <BuilderBlocks
+        dataPath=\\"successMessage\\"
+        :blocks=\\"successMessage\\"
+      ></BuilderBlocks>
+    </template>
+  </form>
+</template>
+
+<script setup>
+import { computed, ref } from \\"vue\\";
+
+import { Builder, builder } from \\"@builder.io/sdk\\";
+import {
+  BuilderBlock as BuilderBlockComponent,
+  BuilderBlocks,
+  get,
+  set,
+} from \\"@fake\\";
+
+const props = defineProps([
+  \\"previewState\\",
+  \\"sendWithJs\\",
+  \\"sendSubmissionsTo\\",
+  \\"action\\",
+  \\"customHeaders\\",
+  \\"contentType\\",
+  \\"sendSubmissionsToEmail\\",
+  \\"name\\",
+  \\"method\\",
+  \\"errorMessagePath\\",
+  \\"resetFormOnSubmit\\",
+  \\"successUrl\\",
+  \\"validate\\",
+  \\"attributes\\",
+  \\"builderBlock\\",
+  \\"errorMessage\\",
+  \\"sendingMessage\\",
+  \\"successMessage\\",
+]);
+const formState = ref(\\"unsubmitted\\");
+const responseData = ref(null);
+const formErrorMessage = ref(\\"\\");
+
+const formRef = ref(null);
+
+const submissionState = computed(() => {
+  return (Builder.isEditing && props.previewState) || formState.value;
+});
+
+function onSubmit(event) {
+  const sendWithJs = props.sendWithJs || props.sendSubmissionsTo === \\"email\\";
+
+  if (props.sendSubmissionsTo === \\"zapier\\") {
+    event.preventDefault();
+  } else if (sendWithJs) {
+    if (!(props.action || props.sendSubmissionsTo === \\"email\\")) {
+      event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    const el = event.currentTarget;
+    const headers = props.customHeaders || {};
+    let body;
+    const formData = new FormData(el); // TODO: maybe support null
+
+    const formPairs = Array.from(
+      event.currentTarget.querySelectorAll(\\"input,select,textarea\\")
+    )
+      .filter((el) => !!el.name)
+      .map((el) => {
+        let value;
+        const key = el.name;
+
+        if (el instanceof HTMLInputElement) {
+          if (el.type === \\"radio\\") {
+            if (el.checked) {
+              value = el.name;
+              return {
+                key,
+                value,
+              };
+            }
+          } else if (el.type === \\"checkbox\\") {
+            value = el.checked;
+          } else if (el.type === \\"number\\" || el.type === \\"range\\") {
+            const num = el.valueAsNumber;
+
+            if (!isNaN(num)) {
+              value = num;
+            }
+          } else if (el.type === \\"file\\") {
+            // TODO: one vs multiple files
+            value = el.files;
+          } else {
+            value = el.value;
+          }
+        } else {
+          value = el.value;
+        }
+
+        return {
+          key,
+          value,
+        };
+      });
+    let contentType = props.contentType;
+
+    if (props.sendSubmissionsTo === \\"email\\") {
+      contentType = \\"multipart/form-data\\";
+    }
+
+    Array.from(formPairs).forEach(({ value }) => {
+      if (
+        value instanceof File ||
+        (Array.isArray(value) && value[0] instanceof File) ||
+        value instanceof FileList
+      ) {
+        contentType = \\"multipart/form-data\\";
+      }
+    }); // TODO: send as urlEncoded or multipart by default
+    // because of ease of use and reliability in browser API
+    // for encoding the form?
+
+    if (contentType !== \\"application/json\\") {
+      body = formData;
+    } else {
+      // Json
+      const json = {};
+      Array.from(formPairs).forEach(({ value, key }) => {
+        set(json, key, value);
+      });
+      body = JSON.stringify(json);
+    }
+
+    if (contentType && contentType !== \\"multipart/form-data\\") {
+      if (
+        /* Zapier doesn't allow content-type header to be sent from browsers */
+        !(sendWithJs && props.action?.includes(\\"zapier.com\\"))
+      ) {
+        headers[\\"content-type\\"] = contentType;
+      }
+    }
+
+    const presubmitEvent = new CustomEvent(\\"presubmit\\", {
+      detail: {
+        body,
+      },
+    });
+
+    if (formRef.value) {
+      formRef.value.dispatchEvent(presubmitEvent);
+
+      if (presubmitEvent.defaultPrevented) {
+        return;
+      }
+    }
+
+    formState.value = \\"sending\\";
+    const formUrl = \`\${
+      builder.env === \\"dev\\" ? \\"http://localhost:5000\\" : \\"https://builder.io\\"
+    }/api/v1/form-submit?apiKey=\${builder.apiKey}&to=\${btoa(
+      props.sendSubmissionsToEmail || \\"\\"
+    )}&name=\${encodeURIComponent(props.name || \\"\\")}\`;
+    fetch(
+      props.sendSubmissionsTo === \\"email\\" ? formUrl : props.action,
+      /* TODO: throw error if no action URL */
+      {
+        body,
+        headers,
+        method: props.method || \\"post\\",
+      }
+    ).then(
+      async (res) => {
+        let body;
+        const contentType = res.headers.get(\\"content-type\\");
+
+        if (contentType && contentType.indexOf(\\"application/json\\") !== -1) {
+          body = await res.json();
+        } else {
+          body = await res.text();
+        }
+
+        if (!res.ok && props.errorMessagePath) {
+          /* TODO: allow supplying an error formatter function */
+          let message = get(body, props.errorMessagePath);
+
+          if (message) {
+            if (typeof message !== \\"string\\") {
+              /* TODO: ideally convert json to yaml so it woul dbe like
+         error: - email has been taken */
+              message = JSON.stringify(message);
+            }
+
+            formErrorMessage.value = message;
+          }
+        }
+
+        responseData.value = body;
+        formState.value = res.ok ? \\"success\\" : \\"error\\";
+
+        if (res.ok) {
+          const submitSuccessEvent = new CustomEvent(\\"submit:success\\", {
+            detail: {
+              res,
+              body,
+            },
+          });
+
+          if (formRef.value) {
+            formRef.value.dispatchEvent(submitSuccessEvent);
+
+            if (submitSuccessEvent.defaultPrevented) {
+              return;
+            }
+            /* TODO: option to turn this on/off? */
+
+            if (props.resetFormOnSubmit !== false) {
+              formRef.value.reset();
+            }
+          }
+          /* TODO: client side route event first that can be preventDefaulted */
+
+          if (props.successUrl) {
+            if (formRef.value) {
+              const event = new CustomEvent(\\"route\\", {
+                detail: {
+                  url: props.successUrl,
+                },
+              });
+              formRef.value.dispatchEvent(event);
+
+              if (!event.defaultPrevented) {
+                location.href = props.successUrl;
+              }
+            } else {
+              location.href = props.successUrl;
+            }
+          }
+        }
+      },
+      (err) => {
+        const submitErrorEvent = new CustomEvent(\\"submit:error\\", {
+          detail: {
+            error: err,
+          },
+        });
+
+        if (formRef.value) {
+          formRef.value.dispatchEvent(submitErrorEvent);
+
+          if (submitErrorEvent.defaultPrevented) {
+            return;
+          }
+        }
+
+        responseData.value = err;
+        formState.value = \\"error\\";
+      }
+    );
+  }
+}
+</script>
+
+<style scoped>
+.pre {
+  padding: 10px;
+  color: red;
+  text-align: center;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Image 1`] = `
+"<template>
+  <div>
+    <picture ref=\\"pictureRef\\">
+      <template v-if=\\"!useLazyLoading() || load\\">
+        <img
+          :alt=\\"altText\\"
+          :aria-role=\\"altText ? 'presentation' : undefined\\"
+          :class=\\"'builder-image' + (_class ? ' ' + _class : '') + ' img'\\"
+          :src=\\"image\\"
+          @load=\\"async (event) => setLoaded()\\"
+          :srcset=\\"srcset\\"
+          :sizes=\\"sizes\\"
+        />
+      </template>
+
+      <source :srcset=\\"srcset\\" /></picture
+    ><slot />
+  </div>
+</template>
+
+<script setup>
+import { onMounted, onUnmounted, ref } from \\"vue\\";
+
+const props = defineProps([
+  \\"lazy\\",
+  \\"altText\\",
+  \\"_class\\",
+  \\"image\\",
+  \\"srcset\\",
+  \\"sizes\\",
+  \\"children\\",
+]);
+const scrollListener = ref(null);
+const imageLoaded = ref(false);
+const load = ref(false);
+
+const pictureRef = ref(null);
+
+onMounted(() => {
+  if (useLazyLoading()) {
+    // throttled scroll capture listener
+    const listener = () => {
+      if (pictureRef.value) {
+        const rect = pictureRef.value.getBoundingClientRect();
+        const buffer = window.innerHeight / 2;
+
+        if (rect.top < window.innerHeight + buffer) {
+          load.value = true;
+          scrollListener.value = null;
+          window.removeEventListener(\\"scroll\\", listener);
+        }
+      }
+    };
+
+    scrollListener.value = listener;
+    window.addEventListener(\\"scroll\\", listener, {
+      capture: true,
+      passive: true,
+    });
+    listener();
+  }
+});
+onUnmounted(() => {
+  if (scrollListener.value) {
+    window.removeEventListener(\\"scroll\\", scrollListener.value);
+  }
+});
+
+function setLoaded() {
+  imageLoaded.value = true;
+}
+function useLazyLoading() {
+  // TODO: Add more checks here, like testing for real web browsers
+  return !!props.lazy && isBrowser();
+}
+function isBrowser() {
+  return (
+    typeof window !== \\"undefined\\" && window.navigator.product != \\"ReactNative\\"
+  );
+}
+</script>
+
+<style scoped>
+.img {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  object-fit: cover;
+  object-position: center;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Image State 1`] = `
+"<template>
+  <div>
+    <template :key=\\"itemIndex\\" v-for=\\"(item, itemIndex) in images\\">
+      <img class=\\"custom-class\\" :src=\\"item\\" :key=\\"itemIndex\\" />
+    </template>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const canShow = ref(true);
+const images = ref([\\"http://example.com/qwik.png\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Img 1`] = `
+"<template>
+  <img
+    :style=\\"{
+      objectFit: backgroundSize || 'cover',
+      objectPosition: backgroundPosition || 'center',
+    }\\"
+    :key=\\"(Builder.isEditing && imgSrc) || 'default-key'\\"
+    :alt=\\"altText\\"
+    :src=\\"imgSrc\\"
+    v-bind=\\"attributes\\"
+  />
+</template>
+
+<script setup>
+import { Builder } from \\"@builder.io/sdk\\";
+
+const props = defineProps([
+  \\"backgroundSize\\",
+  \\"backgroundPosition\\",
+  \\"attributes\\",
+  \\"imgSrc\\",
+  \\"altText\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Input 1`] = `
+"<template>
+  <input
+    :key=\\"Builder.isEditing && defaultValue ? defaultValue : 'default-key'\\"
+    :placeholder=\\"placeholder\\"
+    :type=\\"type\\"
+    :name=\\"name\\"
+    :value=\\"value\\"
+    :defaultValue=\\"defaultValue\\"
+    :required=\\"required\\"
+    @change=\\"async (event) => onChange?.(event.target.value)\\"
+    v-bind=\\"attributes\\"
+  />
+</template>
+
+<script setup>
+import { Builder } from \\"@builder.io/sdk\\";
+
+const props = defineProps([
+  \\"attributes\\",
+  \\"defaultValue\\",
+  \\"placeholder\\",
+  \\"type\\",
+  \\"name\\",
+  \\"value\\",
+  \\"required\\",
+  \\"onChange\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > InputParent 1`] = `
+"<template>
+  <FormInputComponent
+    name=\\"kingzez\\"
+    type=\\"text\\"
+    :onChange=\\"(value) => handleChange(value)\\"
+  ></FormInputComponent>
+</template>
+
+<script setup>
+import FormInputComponent from \\"./input.raw\\";
+
+function handleChange(value) {
+  console.log(value);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > NestedStore 1`] = `
+"<template>
+  <div :id=\\"_id\\">
+    Test
+    <p :id=\\"_messageId\\">Message</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const _id = ref(\\"abc\\");
+const _messageId = ref(_id.value + \\"-message\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > RawText 1`] = `
+"<template>
+  <span
+    :class=\\"attributes?.class || attributes?.className\\"
+    v-html=\\"text || ''\\"
+  ></span>
+</template>
+
+<script setup>
+const props = defineProps([\\"attributes\\", \\"text\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Section 1`] = `
+"<template>
+  <section
+    :style=\\"
+      maxWidth && typeof maxWidth === 'number'
+        ? {
+            maxWidth: maxWidth,
+          }
+        : undefined
+    \\"
+    v-bind=\\"attributes\\"
+  >
+    <slot />
+  </section>
+</template>
+
+<script setup>
+const props = defineProps([\\"attributes\\", \\"maxWidth\\", \\"children\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Section 2`] = `
+"<template>
+  <template v-if=\\"max\\">
+    <template :key=\\"index\\" v-for=\\"(item, index) in items\\">
+      <section
+        :style=\\"{
+          maxWidth: item + max,
+        }\\"
+        v-bind=\\"attributes\\"
+      >
+        <slot />
+      </section>
+    </template>
+  </template>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"attributes\\", \\"children\\"]);
+const max = ref(42);
+const items = ref([42]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Select 1`] = `
+"<template>
+  <select
+    :value=\\"value\\"
+    :key=\\"Builder.isEditing && defaultValue ? defaultValue : 'default-key'\\"
+    :defaultValue=\\"defaultValue\\"
+    :name=\\"name\\"
+    v-bind=\\"attributes\\"
+  >
+    <template :key=\\"index\\" v-for=\\"(option, index) in options\\">
+      <option :value=\\"option.value\\" :data-index=\\"index\\">
+        {{ option.name || option.value }}
+      </option>
+    </template>
+  </select>
+</template>
+
+<script setup>
+import { Builder } from \\"@builder.io/sdk\\";
+
+const props = defineProps([
+  \\"attributes\\",
+  \\"value\\",
+  \\"defaultValue\\",
+  \\"name\\",
+  \\"options\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > SlotDefault 1`] = `
+"<template>
+  <div>
+    <slot><div class=\\"default-slot\\">Default content</div></slot>
+  </div>
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > SlotHtml 1`] = `
+"<template>
+  <div>
+    <ContentSlotCode>
+      <template #testing>
+        <div>Hello</div>
+      </template>
+    </ContentSlotCode>
+  </div>
+</template>
+
+<script setup>
+import ContentSlotCode from \\"./content-slot-jsx.raw\\";
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > SlotJsx 1`] = `
+"<template>
+  <div><ContentSlotCode :slotTesting=\\"<div>Hello</div>\\"></ContentSlotCode></div>
+</template>
+
+<script setup>
+import ContentSlotCode from \\"./content-slot-jsx.raw\\";
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > SlotNamed 1`] = `
+"<template>
+  <div>
+    <slot name=\\"my-awesome-slot\\"></slot><slot name=\\"top\\"></slot
+    ><slot name=\\"left\\">Default left</slot><slot>Default Child</slot>
+  </div>
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Stamped.io 1`] = `
+"<template>
+  <div :data-user=\\"name\\">
+    <button @click=\\"async (event) => (showReviewPrompt = true)\\">
+      Write a review
+    </button>
+    <template v-if=\\"showReviewPrompt || 'asdf'\\">
+      <input placeholder=\\"Email\\" />
+      <input placeholder=\\"Title\\" class=\\"input\\" />
+      <textarea
+        placeholder=\\"How was your experience?\\"
+        class=\\"textarea\\"
+      ></textarea>
+      <button
+        class=\\"button\\"
+        @click=\\"
+          async (ev) => {
+            ev.preventDefault();
+            showReviewPrompt = false;
+          }
+        \\"
+      >
+        Submit
+      </button>
+    </template>
+
+    <template :key=\\"review.id\\" v-for=\\"(review, index) in reviews\\">
+      <div class=\\"review\\">
+        <img class=\\"img\\" :src=\\"review.avatar\\" />
+        <div :class=\\"showReviewPrompt ? 'bg-primary' : 'bg-secondary'\\">
+          <div>N: {{ index }}</div>
+          <div>{{ review.author }}</div>
+          <div>{{ review.reviewMessage }}</div>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+import { kebabCase, snakeCase } from \\"lodash\\";
+
+const props = defineProps([\\"apiKey\\", \\"productId\\"]);
+const reviews = ref([]);
+const name = ref(\\"test\\");
+const showReviewPrompt = ref(false);
+
+onMounted(() => {
+  fetch(
+    \`https://stamped.io/api/widget/reviews?storeUrl=builder-io.myshopify.com&apiKey=\${
+      props.apiKey || \\"pubkey-8bbDq7W6w4sB3OWeM1HUy2s47702hM\\"
+    }&productId=\${props.productId || \\"2410511106127\\"}\`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      reviews.value = data.data;
+    });
+});
+
+function kebabCaseValue() {
+  return kebabCase(\\"testThat\\");
+}
+function snakeCaseValue() {
+  return snakeCase(\\"testThis\\");
+}
+</script>
+
+<style scoped>
+.input {
+  display: block;
+}
+.textarea {
+  display: block;
+}
+.button {
+  display: block;
+}
+.review {
+  margin: 10px;
+  padding: 10px;
+  background: white;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-font-smoothing: antialiased;
+}
+.img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > StoreComment 1`] = `
+"<template>
+  {{ foo }}
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const foo = ref(true);
+
+function bar() {}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > StoreShadowVars 1`] = `
+"<template>
+  {{ foo(errors) }}
+</template>
+
+<script setup>
+   import { ref } from \\"vue\\"
+
+
+
+
+
+
+
+
+
+   const errors= ref({})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function foo(errors.value) {
+return errors.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > StoreWithState 1`] = `
+"<template>
+  {{ bar() }}
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const foo = ref(false);
+
+function bar() {
+  return foo.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Submit 1`] = `
+"<template>
+  <button type=\\"submit\\" v-bind=\\"attributes\\">{{ text }}</button>
+</template>
+
+<script setup>
+const props = defineProps([\\"attributes\\", \\"text\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Text 1`] = `
+"<template>
+  <div
+    :contentEditable=\\"allowEditingText || undefined\\"
+    :data-name=\\"{
+      test: name || 'any name',
+    }\\"
+    v-html=\\"text || content || name || '<p class=\\\\'text-lg\\\\'>my name</p>'\\"
+  ></div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+import { Builder } from \\"@builder.io/sdk\\";
+
+const props = defineProps([\\"text\\", \\"content\\"]);
+const name = ref(\\"Decadef20\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Textarea 1`] = `
+"<template>
+  <textarea
+    :placeholder=\\"placeholder\\"
+    :name=\\"name\\"
+    :value=\\"value\\"
+    :defaultValue=\\"defaultValue\\"
+    v-bind=\\"attributes\\"
+  ></textarea>
+</template>
+
+<script setup>
+const props = defineProps([
+  \\"attributes\\",
+  \\"placeholder\\",
+  \\"name\\",
+  \\"value\\",
+  \\"defaultValue\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > UseValueAndFnFromStore 1`] = `
+"<template>
+  <div>Test</div>
+</template>
+
+<script setup>
+import { onUpdated, ref } from \\"vue\\";
+
+const props = defineProps([\\"onChange\\"]);
+const _id = ref(\\"abc\\");
+const _active = ref(false);
+
+onUpdated(() => {
+  if (_do) {
+    _do(_id.value);
+  }
+});
+
+function _do(id) {
+  _active.value = !!id;
+
+  if (props.onChange) {
+    props.onChange(_active.value);
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > Video 1`] = `
+"<template>
+  <video
+    preload=\\"none\\"
+    :style=\\"{
+      width: '100%',
+      height: '100%',
+      ...attributes?.style,
+      objectFit: fit,
+      objectPosition: position,
+      // Hack to get object fit to work as expected and
+      // not have the video overflow
+      borderRadius: 1,
+    }\\"
+    :key=\\"video || 'no-src'\\"
+    :poster=\\"posterImage\\"
+    :autoplay=\\"autoPlay\\"
+    :muted=\\"muted\\"
+    :controls=\\"controls\\"
+    :loop=\\"loop\\"
+    v-bind=\\"attributes\\"
+  ></video>
+</template>
+
+<script setup>
+const props = defineProps([
+  \\"attributes\\",
+  \\"fit\\",
+  \\"position\\",
+  \\"video\\",
+  \\"posterImage\\",
+  \\"autoPlay\\",
+  \\"muted\\",
+  \\"controls\\",
+  \\"loop\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > arrowFunctionInUseStore 1`] = `
+"<template>
+  <div>Hello {{ name }}</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"steve\\");
+
+function setName(value) {
+  name.value = value;
+}
+function updateNameWithArrowFn(value) {
+  name.value = value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicForFragment 1`] = `
+"<template>
+  <div>
+    <template :key=\\"\`key-\${option}\`\\" v-for=\\"(option, index) in ['a', 'b', 'c']\\">
+      <div>{{ option }}</div> </template
+    ><template
+      :key=\\"\`\${id}-\${option}\`\\"
+      v-for=\\"(option, index) in ['a', 'b', 'c']\\"
+    >
+      <div>{{ option }}</div> </template
+    ><select>
+      <template
+        :key=\\"\`\${id}-\${option}\`\\"
+        v-for=\\"(option, index) in ['d', 'e', 'f']\\"
+      >
+        <option :value=\\"option\\">{{ option }}</option>
+      </template>
+    </select>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const id = ref(\\"xyz\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicForNoTagReference 1`] = `
+"<template>
+  <component :is=\\"TagNameGetter\\">
+    Hello <component :is=\\"tag\\">{{ name }}</component
+    ><template :key=\\"index\\" v-for=\\"(action, index) in actions\\">
+      <component :is=\\"TagName\\"
+        ><component :is=\\"action.icon\\"></component
+        ><span>{{ action.text }}</span></component
+      >
+    </template></component
+  >
+</template>
+
+<script setup>
+import { computed, ref } from \\"vue\\";
+
+const props = defineProps([\\"actions\\"]);
+const name = ref(\\"VincentW\\");
+const TagName = ref(\\"div\\");
+const tag = ref(\\"span\\");
+
+const TagNameGetter = computed(() => {
+  return \\"span\\";
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicForwardRef 1`] = `
+"<template>
+  <div>
+    <input
+      class=\\"input\\"
+      ref=\\"inputRef\\"
+      :value=\\"name\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"inputRef\\"]);
+const name = ref(\\"PatrickJS\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicForwardRefMetadata 1`] = `
+"/** useMetadata: {\\"forwardRef\\":\\"inputRef\\"} */
+
+<template>
+  <div>
+    <input
+      class=\\"input\\"
+      ref=\\"inputRef\\"
+      :value=\\"name\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"inputRef\\"]);
+const name = ref(\\"PatrickJS\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicOnUpdateReturn 1`] = `
+"<template>
+  <div>Hello! {{ name }}</div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+
+watch(
+  () => [name.value],
+  () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch(\\"https://patrickjs.com/api/resource.json\\", {
+      signal,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        name.value = data.name.value;
+      });
+    return () => {
+      if (!signal.aborted) {
+        controller.abort();
+      }
+    };
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicRefAttributePassing 1`] = `
+"/** useMetadata: {\\"attributePassing\\":{\\"enabled\\":true}} */
+
+<template>
+  <button ref=\\"buttonRef\\">Attribute Passing</button>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const buttonRef = ref(null);
+
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > basicRefAttributePassingCustomRef 1`] = `
+"/** useMetadata: {\\"attributePassing\\":{\\"enabled\\":true,\\"customRef\\":\\"buttonRef\\"}}
+*/
+
+<template>
+  <div><button ref=\\"buttonRef\\">Attribute Passing</button></div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const buttonRef = ref(null);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > class + ClassName + css 1`] = `
+"<template>
+  <div>
+    <MyComp class=\\"test\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </MyComp>
+    <div class=\\"test2 test div\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </div>
+  </div>
+</template>
+
+<script setup>
+import MyComp from \\"./my-component.vue\\";
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > class + css 1`] = `
+"<template>
+  <div class=\\"test div\\">Hello! I can run in React, Vue, Solid, or Liquid!</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > className + css 1`] = `
+"<template>
+  <div class=\\"test div\\">Hello! I can run in React, Vue, Solid, or Liquid!</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > className 1`] = `
+"<template>
+  <div>
+    <div class=\\"no binding\\">Without Binding</div>
+    <div :class=\\"bindings\\">With binding</div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const bindings = ref(\\"a binding\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > classState 1`] = `
+"<template>
+  <div :class=\\"classState + ' div'\\" :style=\\"styleState\\">
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const classState = ref(\\"testClassName\\");
+const styleState = ref({
+  color: \\"red\\",
+});
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > classnameProps 1`] = `
+"/** useMetadata:
+{\\"stencil\\":{\\"propOptions\\":{\\"className\\":{\\"attribute\\":\\"classname\\",\\"mutable\\":false,\\"reflect\\":false}}}}
+*/
+
+<template>
+  <div :class=\\"className\\">
+    <slot />{{ type }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"className\\", \\"children\\", \\"type\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > complexMeta 1`] = `
+"/** useMetadata:
+{\\"x\\":\\"y\\",\\"asdf\\":{\\"stringValue\\":\\"d\\",\\"booleanValue\\":true,\\"numberValue\\":1,\\"innerObject\\":{\\"stringValue\\":\\"inner\\",\\"numberValue\\":2,\\"booleanValue\\":false},\\"spreadStringValue\\":\\"f\\"}}
+*/
+
+<template>
+  <div></div>
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > componentWithContext 1`] = `
+"<template>
+  {{ foo.value }}
+</template>
+
+<script setup>
+import { inject, provide } from \\"vue\\";
+
+import Context1 from \\"@dummy/1\\";
+import Context2 from \\"@dummy/2\\";
+
+const props = defineProps([\\"content\\"]);
+
+const foo = inject(Context1.key);
+
+provide(Context1.key, {
+  foo: \\"bar\\",
+  content() {
+    return props.content;
+  },
+});
+provide(Context2.key, { bar: \\"baz\\" });
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > componentWithContextMultiRoot 1`] = `
+"<template>
+  {{ foo.value }}
+  <div>other</div>
+</template>
+
+<script setup>
+import { inject, provide } from \\"vue\\";
+
+import Context1 from \\"@dummy/1\\";
+import Context2 from \\"@dummy/2\\";
+
+const props = defineProps([\\"content\\"]);
+
+const foo = inject(Context1.key);
+
+provide(Context1.key, {
+  foo: \\"bar\\",
+  content() {
+    return props.content;
+  },
+});
+provide(Context2.key, { bar: \\"baz\\" });
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > contentState 1`] = `
+"<template>
+  <div>setting context</div>
+</template>
+
+<script setup>
+import { provide } from \\"vue\\";
+
+import BuilderContext from \\"@dummy/context.js\\";
+
+const props = defineProps([\\"content\\", \\"customComponents\\"]);
+
+provide(BuilderContext.key, {
+  content: props.content,
+  registeredComponents: props.customComponents,
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > defaultProps 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button
+        type=\\"button\\"
+        @click=\\"async (event) => onClick()\\"
+        v-bind=\\"attributes\\"
+      >
+        {{ buttonText }}
+      </button>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = withDefaults(defineProps(), {
+  link: \\"https://builder.io/\\",
+  attributes: undefined,
+  openLinkInNewTab: false,
+  text: \\"default text\\",
+  onClick: () => {
+    console.log(\\"hi\\");
+  },
+  buttonText: undefined,
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > defaultPropsOutsideComponent 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button
+        type=\\"button\\"
+        @click=\\"async (event) => onClick(event)\\"
+        v-bind=\\"attributes\\"
+      >
+        {{ text }}
+      </button>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = withDefaults(defineProps(), {
+  link: \\"https://builder.io/\\",
+  attributes: undefined,
+  openLinkInNewTab: false,
+  text: \\"default text\\",
+  onClick: () => {},
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > defaultValsWithTypes 1`] = `
+"<template>
+  <div>Hello {{ name || DEFAULT_VALUES.name }}</div>
+</template>
+
+<script setup>
+const DEFAULT_VALUES = {
+  name: \\"Sami\\",
+};
+
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > eventInputAndChange 1`] = `
+"<template>
+  <div>
+    <input
+      class=\\"input\\"
+      :value=\\"name\\"
+      @input=\\"async (event) => (name = event.target.value)\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > eventProps 1`] = `
+"<template>
+  <button @click=\\"async (event) => handleClick()\\">Test</button>
+</template>
+
+<script setup>
+const props = defineProps([\\"onGetVoid\\", \\"onEnter\\", \\"onPass\\"]);
+
+function handleClick() {
+  if (props.onGetVoid) {
+    props.onGetVoid();
+  }
+
+  if (props.onEnter) {
+    console.log(props.onEnter());
+  }
+
+  if (props.onPass) {
+    props.onPass(\\"test\\");
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > expressionState 1`] = `
+"<template>
+  <div>{{ refToUse }}</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"componentRef\\"]);
+const refToUse = ref(
+  !(props.componentRef instanceof Function) ? props.componentRef : null
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > figmaMeta 1`] = `
+"/** useMetadata:
+{\\"figma\\":{\\"name\\":\\"def-button-beta-outlined\\",\\"url\\":\\"https://www.figma.com/xxx\\",\\"props\\":{\\"iconSmall\\":{\\"type\\":\\"instance\\",\\"key\\":\\"📍
+Icon Small\\"},\\"iconMedium\\":{\\"type\\":\\"instance\\",\\"key\\":\\"📍 Icon
+Medium\\"},\\"label\\":{\\"type\\":\\"string\\",\\"key\\":\\"✏️
+Label\\"},\\"icon\\":{\\"type\\":\\"boolean\\",\\"key\\":\\"👁️
+Icon\\",\\"value\\":{\\"false\\":false,\\"true\\":\\"placeholder\\"}},\\"interactiveState\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Interactive
+State\\",\\"value\\":{\\"(Def)
+Enabled\\":false,\\"Hovered\\":false,\\"Pressed\\":false,\\"Focused\\":false,\\"Disabled\\":\\"true\\"}},\\"size\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Size\\",\\"value\\":{\\"(Def)
+Medium\\":false,\\"Small\\":\\"small\\"}},\\"width\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Width\\",\\"value\\":{\\"(Def)
+Auto Width\\":false,\\"Full Width\\":\\"full\\"}}}}} */
+
+<template>
+  <button
+    :data-icon=\\"icon\\"
+    :data-disabled=\\"interactiveState\\"
+    :data-width=\\"width\\"
+    :data-size=\\"size\\"
+  >
+    {{ label }}
+  </button>
+</template>
+
+<script setup>
+const props = defineProps([
+  \\"icon\\",
+  \\"interactiveState\\",
+  \\"width\\",
+  \\"size\\",
+  \\"label\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > functionProps 1`] = `
+"<template>
+  <p
+    :f=\\"() => x\\"
+    :f1=\\"(x) => x\\"
+    :f2=\\"(x) => {}\\"
+    :f3=\\"
+      function () {
+        return x;
+      }
+    \\"
+    :f4=\\"
+      function (x) {
+        return x;
+      }
+    \\"
+    :f5=\\"
+      function (x) {
+        return;
+      }
+    \\"
+    :f6=\\"
+      function () {
+        return;
+      }
+    \\"
+    :f7=\\"(a, b, c) => a + b + c\\"
+  ></p>
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > getterState 1`] = `
+"<template>
+  <div>
+    <p>{{ foo2 }}</p>
+    <p>{{ bar }}</p>
+    <p>{{ baz(1) }}</p>
+  </div>
+</template>
+
+<script setup>
+import { computed } from \\"vue\\";
+
+const props = defineProps([\\"foo\\"]);
+
+const foo2 = computed(() => {
+  return props.foo + \\"foo\\";
+});
+const bar = computed(() => {
+  return \\"bar\\";
+});
+
+function baz(i) {
+  return i + foo2.length;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > import types 1`] = `
+"<template>
+  <RenderBlock
+    v-bind=\\"getRenderContentProps(renderContentProps.block, 0)\\"
+  ></RenderBlock>
+</template>
+
+<script setup>
+import RenderBlock from \\"./builder-render-block.raw\\";
+
+const props = defineProps([\\"renderContentProps\\"]);
+
+function getRenderContentProps(block, index) {
+  return {
+    block: block,
+    index: index,
+  };
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > layerName 1`] = `
+"<template>
+  <section>
+    <div class=\\"layer-name\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </div>
+  </section>
+</template>
+
+
+
+<style scoped>
+.layer-name {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > multipleOnUpdate 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender\\");
+});
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender as well\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > multipleOnUpdateWithDeps 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+const a = ref(\\"a\\");
+const b = ref(\\"b\\");
+const c = ref(\\"c\\");
+const d = ref(\\"d\\");
+
+watch(
+  () => [a.value, b.value],
+  () => {
+    console.log(\\"Runs when a or b changes\\", a.value, b.value);
+
+    if (a.value === \\"a\\") {
+      a.value = \\"b\\";
+    }
+  },
+  { immediate: true }
+);
+watch(
+  () => [c.value, d.value],
+  () => {
+    console.log(\\"Runs when c or d changes\\", c.value, d.value);
+
+    if (a.value === \\"a\\") {
+      a.value = \\"b\\";
+    }
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > multipleSpreads 1`] = `
+"<template>
+  <input v-bind=\\"{ ...attrs, ...$props }\\" />
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const attrs = ref({
+  hello: \\"world\\",
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > nestedShow 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\">
+    <template v-if=\\"!conditionB\\">
+      <div>if condition A and condition B</div>
+    </template>
+
+    <template v-else>
+      <div>else-condition-B</div>
+    </template>
+  </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup>
+const props = defineProps([\\"conditionA\\", \\"conditionB\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > nestedStyles 1`] = `
+"<template>
+  <div class=\\"div\\">Hello world</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  display: flex;
+  --bar: red;
+  color: var(--bar);
+}
+@media (max-width: env(--mobile)) {
+  .div {
+    display: block;
+  }
+}
+.div:hover {
+  display: flex;
+}
+.div:active {
+  display: inline;
+}
+.div .nested-selector {
+  display: grid;
+}
+.div .nested-selector:hover {
+  display: block;
+}
+.div.nested-selector:active {
+  display: inline-block;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > normalizeLayerNames 1`] = `
+"<template>
+  <section>
+    <div>Emoji</div>
+    <div>Dashes</div>
+    <div>CamelCase</div>
+    <div>Special chars</div>
+    <div>Special chars with dashes</div>
+    <div class=\\"css-0\\">Single Number</div>
+    <div class=\\"css-123\\">Multiple Numbers</div>
+    <div class=\\"name-123\\">Chars with numbers at end</div>
+    <div class=\\"name\\">Chars with numbers at start</div>
+    <div class=\\"name-789\\">Numnbers separated by dash</div>
+    <div>Emoji</div>
+    <div data-name=\\"1\\" class=\\"div\\">Number</div>
+  </section>
+</template>
+
+
+
+<style scoped>
+.css-0 {
+  margin: 10px;
+}
+.css-123 {
+  padding: 10px;
+}
+.name-123 {
+  border: 1px solid;
+}
+.name {
+  color: red;
+}
+.name-789 {
+  background: blue;
+}
+.div {
+  background: blue;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onEvent 1`] = `
+"<template>
+  <div
+    class=\\"builder-embed\\"
+    ref=\\"elem\\"
+    @initeditingbldr=\\"async (event) => elem_onInitEditingBldr(event)\\"
+  >
+    <div>Test</div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, ref } from \\"vue\\";
+
+const elem = ref(null);
+
+onMounted(() => {
+  elem.value.dispatchEvent(new CustomEvent(\\"initEditingBldr\\"));
+});
+
+function foo(event) {
+  console.log(\\"test2\\");
+}
+function elem_onInitEditingBldr(event) {
+  console.log(\\"test\\");
+  foo(event);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onInit & onMount 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted } from \\"vue\\";
+
+console.log(\\"onInit\\");
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onInit 1`] = `
+"<template>
+  <div>Default name defined by parent {{ name }}</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+export const defaultValues = {
+  name: \\"PatrickJS\\",
+};
+
+const props = defineProps([\\"name\\"]);
+const name = ref(\\"\\");
+
+name.value = defaultValues.name.value || props.name.value;
+console.log(\\"set defaults with props\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onInitPlain 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+console.log(\\"onInit\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onMount 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted, onUnmounted } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"Runs on mount\\");
+});
+onUnmounted(() => {
+  console.log(\\"Runs on unMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onMountMultiple 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"Runs on mount\\");
+});
+onMounted(() => {
+  console.log(\\"Another one runs on Mount\\");
+});
+onMounted(() => {
+  console.log(\\"SSR runs on Mount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onUpdate 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > onUpdateWithDeps 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+const props = defineProps([\\"size\\"]);
+const a = ref(\\"a\\");
+const b = ref(\\"b\\");
+
+watch(
+  () => [a.value, b.value, props.size],
+  () => {
+    console.log(\\"Runs when a, b or size changes\\", a.value, b.value, props.size);
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > preserveExportOrLocalStatement 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+const b = 3;
+const foo = () => {};
+export const a = 3;
+export const bar = () => {};
+export function run(value) {}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > preserveTyping 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > propsDestructure 1`] = `
+"<template>
+  <div>
+    <slot />{{ type }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"children\\", \\"type\\"]);
+const name = ref(\\"Decadef20\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > propsInterface 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > propsType 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > referencingFunInsideHook 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  foo({
+    someOption: bar,
+  });
+});
+
+function foo(params) {}
+function bar() {}
+function zoo() {
+  const params = {
+    cb: bar,
+  };
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > renderBlock 1`] = `
+"<template>
+  <template v-if=\\"shouldWrap\\">
+    <template v-if=\\"isEmptyHtmlElement(tag)\\">
+      <component :is=\\"tag\\" v-bind=\\"{ ...attributes, ...actions }\\"></component>
+    </template>
+
+    <template v-if=\\"!isEmptyHtmlElement(tag) && repeatItemData\\">
+      <template :key=\\"index\\" v-for=\\"(data, index) in repeatItemData\\">
+        <RenderRepeatedBlock
+          :repeatContext=\\"data.context\\"
+          :block=\\"data.block\\"
+        ></RenderRepeatedBlock>
+      </template>
+    </template>
+
+    <template v-if=\\"!isEmptyHtmlElement(tag) && !repeatItemData\\">
+      <component :is=\\"tag\\" v-bind=\\"{ ...attributes, ...actions }\\"
+        ><component
+          :is=\\"renderComponentTag\\"
+          v-bind=\\"renderComponentProps\\"
+        ></component
+        ><template
+          :key=\\"'render-block-' + child.id\\"
+          v-for=\\"(child, index) in childrenWithoutParentComponent\\"
+        >
+          <RenderBlock
+            :block=\\"child\\"
+            :context=\\"childrenContext\\"
+          ></RenderBlock> </template
+        ><template
+          :key=\\"'block-style-' + child.id\\"
+          v-for=\\"(child, index) in childrenWithoutParentComponent\\"
+        >
+          <BlockStyles
+            :block=\\"child\\"
+            :context=\\"childrenContext\\"
+          ></BlockStyles> </template
+      ></component>
+    </template>
+  </template>
+
+  <template v-else>
+    <component
+      :is=\\"renderComponentTag\\"
+      v-bind=\\"renderComponentProps\\"
+    ></component>
+  </template>
+</template>
+
+<script setup>
+import { computed } from \\"vue\\";
+
+import { TARGET } from \\"../../constants/target.js\\";
+import { evaluate } from \\"../../functions/evaluate.js\\";
+import { extractTextStyles } from \\"../../functions/extract-text-styles.js\\";
+import { getBlockActions } from \\"../../functions/get-block-actions.js\\";
+import { getBlockComponentOptions } from \\"../../functions/get-block-component-options.js\\";
+import { getBlockProperties } from \\"../../functions/get-block-properties.js\\";
+import { getBlockTag } from \\"../../functions/get-block-tag.js\\";
+import { getProcessedBlock } from \\"../../functions/get-processed-block.js\\";
+import { getReactNativeBlockStyles } from \\"../../functions/get-react-native-block-styles.js\\";
+import BlockStyles from \\"./block-styles.vue\\";
+import { isEmptyHtmlElement } from \\"./render-block.helpers.js\\";
+import RenderComponentWithContext from \\"./render-component-with-context.js\\";
+import RenderComponent from \\"./render-component.vue\\";
+import RenderRepeatedBlock from \\"./render-repeated-block.vue\\";
+
+const props = defineProps([\\"block\\", \\"context\\"]);
+
+const component = computed(() => {
+  const componentName = getProcessedBlock({
+    block: props.block,
+    state: props.context.state,
+    context: props.context.context,
+    shouldEvaluateBindings: false,
+  }).component?.name;
+
+  if (!componentName) {
+    return null;
+  }
+
+  const ref = props.context.registeredComponents[componentName];
+
+  if (!ref) {
+    // TODO: Public doc page with more info about this message
+    console.warn(\`
+          Could not find a registered component named \\"\${componentName}\\".
+          If you registered it, is the file that registered it imported by the file that needs to render it?\`);
+    return undefined;
+  } else {
+    return ref;
+  }
+});
+const tag = computed(() => {
+  return getBlockTag(useBlock);
+});
+const useBlock = computed(() => {
+  return repeatItemData
+    ? props.block
+    : getProcessedBlock({
+        block: props.block,
+        state: props.context.state,
+        context: props.context.context,
+        shouldEvaluateBindings: true,
+      });
+});
+const actions = computed(() => {
+  return getBlockActions({
+    block: useBlock,
+    state: props.context.state,
+    context: props.context.context,
+  });
+});
+const attributes = computed(() => {
+  const blockProperties = getBlockProperties(useBlock);
+  return {
+    ...blockProperties,
+    ...(TARGET === \\"reactNative\\"
+      ? {
+          style: getReactNativeBlockStyles({
+            block: useBlock,
+            context: props.context,
+            blockStyles: blockProperties.style,
+          }),
+        }
+      : {}),
+  };
+});
+const shouldWrap = computed(() => {
+  return !component?.noWrap;
+});
+const renderComponentProps = computed(() => {
+  return {
+    blockChildren: useChildren,
+    componentRef: component?.component,
+    componentOptions: {
+      ...getBlockComponentOptions(useBlock),
+
+      /**
+       * These attributes are passed to the wrapper element when there is one. If \`noWrap\` is set to true, then
+       * they are provided to the component itself directly.
+       */
+      ...(shouldWrap
+        ? {}
+        : {
+            attributes: { ...attributes, ...actions },
+          }),
+      customBreakpoints: childrenContext?.content?.meta?.breakpoints,
+    },
+    context: childrenContext,
+  };
+});
+const useChildren = computed(() => {
+  // TO-DO: When should \`canHaveChildren\` dictate rendering?
+  // This is currently commented out because some Builder components (e.g. Box) do not have \`canHaveChildren: true\`,
+  // but still receive and need to render children.
+  // return state.componentInfo?.canHaveChildren ? state.useBlock.children : [];
+  return useBlock.children ?? [];
+});
+const childrenWithoutParentComponent = computed(() => {
+  /**
+   * When there is no \`componentRef\`, there might still be children that need to be rendered. In this case,
+   * we render them outside of \`componentRef\`.
+   * NOTE: We make sure not to render this if \`repeatItemData\` is non-null, because that means we are rendering an array of
+   * blocks, and the children will be repeated within those blocks.
+   */
+  const shouldRenderChildrenOutsideRef =
+    !component?.component && !repeatItemData;
+  return shouldRenderChildrenOutsideRef ? useChildren : [];
+});
+const repeatItemData = computed(() => {
+  /**
+   * we don't use \`state.useBlock\` here because the processing done within its logic includes evaluating the block's bindings,
+   * which will not work if there is a repeat.
+   */
+  const { repeat, ...blockWithoutRepeat } = props.block;
+
+  if (!repeat?.collection) {
+    return undefined;
+  }
+
+  const itemsArray = evaluate({
+    code: repeat.collection,
+    state: props.context.state,
+    context: props.context.context,
+  });
+
+  if (!Array.isArray(itemsArray)) {
+    return undefined;
+  }
+
+  const collectionName = repeat.collection.split(\\".\\").pop();
+  const itemNameToUse =
+    repeat.itemName || (collectionName ? collectionName + \\"Item\\" : \\"item\\");
+  const repeatArray = itemsArray.map((item, index) => ({
+    context: {
+      ...props.context,
+      state: {
+        ...props.context.state,
+        $index: index,
+        $item: item,
+        [itemNameToUse]: item,
+        [\`$\${itemNameToUse}Index\`]: index,
+      },
+    },
+    block: blockWithoutRepeat,
+  }));
+  return repeatArray;
+});
+const inheritedTextStyles = computed(() => {
+  if (TARGET !== \\"reactNative\\") {
+    return {};
+  }
+
+  const styles = getReactNativeBlockStyles({
+    block: useBlock,
+    context: props.context,
+    blockStyles: attributes.style,
+  });
+  return extractTextStyles(styles);
+});
+const childrenContext = computed(() => {
+  return {
+    apiKey: props.context.apiKey,
+    state: props.context.state,
+    content: props.context.content,
+    context: props.context.context,
+    registeredComponents: props.context.registeredComponents,
+    inheritedStyles: inheritedTextStyles,
+  };
+});
+const renderComponentTag = computed(() => {
+  if (TARGET === \\"reactNative\\") {
+    return RenderComponentWithContext;
+  } else if (TARGET === \\"vue3\\") {
+    // vue3 expects a string for the component tag
+    return \\"RenderComponent\\";
+  } else {
+    return RenderComponent;
+  }
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > renderContentExample 1`] = `
+"<template>
+  <div class=\\"div\\" @click=\\"async (event) => trackClick(content.id)\\">
+    <RenderBlocks :blocks=\\"content.blocks\\"></RenderBlocks>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, provide, watch } from \\"vue\\";
+
+import BuilderContext from \\"@dummy/context.js\\";
+import {
+  dispatchNewContentToVisualEditor,
+  sendComponentsToVisualEditor,
+  trackClick,
+} from \\"@dummy/injection-js\\";
+import RenderBlocks from \\"@dummy/RenderBlocks.vue\\";
+
+const props = defineProps([\\"customComponents\\", \\"content\\"]);
+
+provide(BuilderContext.key, {
+  get content() {
+    return 3;
+  },
+  get registeredComponents() {
+    return 4;
+  },
+});
+
+onMounted(() => {
+  sendComponentsToVisualEditor(props.customComponents);
+});
+
+watch(
+  () => [props.content],
+  () => {
+    dispatchNewContentToVisualEditor(props.content);
+  },
+  { immediate: true }
+);
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: columns;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > rootFragmentMultiNode 1`] = `
+"<template>
+  <template v-if=\\"link\\">
+    <a
+      :href=\\"link\\"
+      :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+      v-bind=\\"attributes\\"
+      >{{ text }}</a
+    >
+  </template>
+
+  <template v-if=\\"!link\\">
+    <button type=\\"button\\" v-bind=\\"attributes\\">{{ text }}</button>
+  </template>
+</template>
+
+<script setup>
+const props = defineProps([\\"link\\", \\"attributes\\", \\"openLinkInNewTab\\", \\"text\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > rootShow 1`] = `
+"<template>
+  <template v-if=\\"foo === 'bar'\\">
+    <div>Bar</div>
+  </template>
+
+  <template v-else>
+    <div>Foo</div>
+  </template>
+</template>
+
+<script setup>
+const props = defineProps([\\"foo\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > self-referencing component 1`] = `
+"<template>
+  <div>
+    {{ name }}
+    <template v-if=\\"name === 'Batman'\\">
+      <MyComponent name=\\"Bruce Wayne\\"></MyComponent>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > self-referencing component with children 1`] = `
+"<template>
+  <div>
+    {{ name }}<slot />
+    <template v-if=\\"name === 'Batman'\\">
+      <MyComponent name=\\"Bruce\\"><div>Wayne</div></MyComponent>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\", \\"children\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > setState 1`] = `
+"<template>
+  <div><button @click=\\"async (event) => someFn()\\">Click me</button></div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const n = ref([\\"123\\"]);
+
+function someFn() {
+  n.value[0] = \\"123\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > showExpressions 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"conditionA\\"> Content0 </template>
+
+    <template v-else> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentB </template>
+
+    <template v-else>
+      {{ undefined }}
+    </template>
+
+    <template v-if=\\"conditionA\\">
+      {{ undefined }}
+    </template>
+
+    <template v-else> ContentB </template>
+
+    <template v-if=\\"conditionA\\"> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> ContentE </template>
+
+    <template v-else> hello </template>
+
+    <template v-if=\\"conditionA\\"> hello </template>
+
+    <template v-else> ContentE </template>
+
+    <template v-if=\\"conditionA\\"> ContentF </template>
+
+    <template v-else> 123 </template>
+
+    <template v-if=\\"conditionA\\"> 123 </template>
+
+    <template v-else> ContentF </template>
+
+    <template v-if=\\"conditionA === 'Default'\\"> 4mb </template>
+
+    <template v-else>
+      <template v-if=\\"conditionB === 'Complete'\\"> 20mb </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-if=\\"conditionA === 'Default'\\">
+      <template v-if=\\"conditionB === 'Complete'\\"> 20mb </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-else> 4mb </template>
+
+    <template v-if=\\"conditionA === 'Default'\\">
+      <template v-if=\\"conditionB === 'Complete'\\">
+        <div>complete</div>
+      </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-else>
+      <template v-if=\\"conditionC === 'Complete'\\"> dff </template>
+
+      <template v-else>
+        <div>complete else</div>
+      </template>
+    </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"conditionA\\", \\"conditionB\\", \\"conditionC\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > showWithFor 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\">
+    <template :key=\\"idx\\" v-for=\\"(item, idx) in items\\">
+      <div>{{ item }}</div>
+    </template>
+  </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup>
+const props = defineProps([\\"conditionA\\", \\"items\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > showWithOtherValues 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"conditionA\\"> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentB </template>
+
+    <template v-else>
+      {{ undefined }}
+    </template>
+
+    <template v-if=\\"conditionA\\"> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> ContentE </template>
+
+    <template v-else> hello </template>
+
+    <template v-if=\\"conditionA\\"> ContentF </template>
+
+    <template v-else> 123 </template>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps([\\"conditionA\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > showWithRootText 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\"> ContentA </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup>
+const props = defineProps([\\"conditionA\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > signalsOnUpdate 1`] = `
+"<template>
+  <div class=\\"test div\\">{{ id }}{{ foo.value.bar.baz }}</div>
+</template>
+
+<script setup>
+import { watch } from \\"vue\\";
+
+const props = defineProps([\\"id\\", \\"foo\\"]);
+
+watch(
+  () => [props.id, props.foo.value.bar.baz],
+  () => {
+    console.log(\\"props.id changed\\", props.id);
+    console.log(\\"props.foo.value.bar.baz changed\\", props.foo.value.bar.baz);
+  },
+  { immediate: true }
+);
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > spreadAttrs 1`] = `
+"<template>
+  <input v-bind=\\"attrs\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > spreadNestedProps 1`] = `
+"<template>
+  <input v-bind=\\"nested\\" />
+</template>
+
+<script setup>
+const props = defineProps([\\"nested\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > spreadProps 1`] = `
+"<template>
+  <input v-bind=\\"$props\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > store-async-function 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+async function arrowFunction() {
+  return Promise.resolve();
+}
+async function namedFunction() {
+  return Promise.resolve();
+}
+async function fetchUsers() {
+  return Promise.resolve();
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > string-literal-store 1`] = `
+"<template>
+  <div>{{ foo }}</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const foo = ref(123);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > string-literal-store-kebab 1`] = `
+"<template>
+  <div>{{ \\"foo-bar\\" }}</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\"
+
+
+
+
+
+
+
+
+
+const foo-bar= ref(123)
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > styleClassAndCss 1`] = `
+"<template>
+  <div
+    class=\\"builder-column div\\"
+    :style=\\"{
+      width: '100%',
+    }\\"
+  ></div>
+</template>
+
+
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > stylePropClassAndCss 1`] = `
+"<template>
+  <div :style=\\"attributes.style\\" :class=\\"attributes.className + ' div'\\"></div>
+</template>
+
+<script setup>
+const props = defineProps([\\"attributes\\"]);
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > subComponent 1`] = `
+"<template>
+  <Foo></Foo>
+</template>
+
+<script setup>
+import Foo from \\"./foo-sub-component.vue\\";
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > svgComponent 1`] = `
+"<template>
+  <svg
+    fill=\\"none\\"
+    role=\\"img\\"
+    :viewBox=\\"'0 0 ' + 42 + ' ' + 42\\"
+    :width=\\"42\\"
+    :height=\\"42\\"
+  >
+    <defs>
+      <filter id=\\"prefix__filter0_f\\" filterUnits=\\"userSpaceOnUse\\">
+        <feFlood result=\\"BackgroundImageFix\\"></feFlood>
+        <feBlend
+          in=\\"SourceGraphic\\"
+          in2=\\"BackgroundImageFix\\"
+          result=\\"shape\\"
+        ></feBlend>
+        <feGaussianBlur
+          result=\\"effect1_foregroundBlur\\"
+          :stdDeviation=\\"7\\"
+        ></feGaussianBlur>
+      </filter>
+    </defs>
+  </svg>
+</template>"
+`;
+
+exports[`Vue > jsx > Javascript Test > typeDependency 1`] = `
+"<template>
+  <div>{{ foo }}</div>
+</template>
+
+<script setup>
+const props = defineProps([\\"foo\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > typeExternalProps 1`] = `
+"<template>
+  <div>Hello {{ name }}!</div>
+</template>
+
+<script setup>
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > typeExternalStore 1`] = `
+"<template>
+  <div>Hello {{ _name }}!</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const _name = ref(\\"test\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > typeGetterStore 1`] = `
+"<template>
+  <div>Hello {{ name }}!</div>
+</template>
+
+<script setup>
+import { computed, ref } from \\"vue\\";
+
+const name = ref(\\"test\\");
+
+const test = computed(() => {
+  return \\"test\\";
+});
+
+function getName() {
+  if (name.value === \\"a\\") {
+    return \\"b\\";
+  }
+
+  return name.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > use-style 1`] = `
+"<template>
+  <button type=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  background: blue;
+  color: white;
+  font-size: 12px;
+  outline: 1px solid black;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > use-style-and-css 1`] = `
+"<template>
+  <button type=\\"button\\" class=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  font-size: 12px;
+  outline: 1px solid black;
+}
+
+.button {
+  background: blue;
+  color: white;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > use-style-outside-component 1`] = `
+"<template>
+  <button type=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  background: blue;
+  color: white;
+  font-size: 12px;
+  outline: 1px solid black;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Javascript Test > useTarget 1`] = `
+"<template>
+  <div>{{ name }}</div>
+</template>
+
+<script setup>
+import { computed, onMounted, ref } from \\"vue\\";
+
+const lastName = ref(\\"bar\\");
+const foo = ref(\\"bar\\");
+
+onMounted(() => {
+  console.log(foo.value);
+  foo.value = \\"bar\\";
+});
+
+const name = computed(() => {
+  const prefix = \\"v\\";
+  return prefix + \\"foo\\";
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Javascript Test > webComponent 1`] = `
+"<template>
+  <swiper-container slides-per-view=\\"3\\" navigation=\\"true\\" pagination=\\"true\\"
+    ><swiper-slide>Slide 1</swiper-slide><swiper-slide>Slide 2</swiper-slide
+    ><swiper-slide>Slide 3</swiper-slide></swiper-container
+  >
+</template>
+
+<script setup>
+import { register } from \\"swiper/element/bundle\\";
+
+register();
+</script>"
+`;
+
+exports[`Vue > jsx > Remove Internal mitosis package 1`] = `
+"<template>
+  <div>Hello {{ name }}! I can run in React, Qwik, Vue, Solid, or Liquid!</div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Advanced 1`] = `
+"<template>
+  <main>
+    <template :key=\\"i\\" v-for=\\"(person, i) in names\\">
+      <div>{{ i }}: {{ person }}</div> </template
+    ><template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <span>{{ person }}</span> </template
+    ><template :key=\\"index\\" v-for=\\"(_, index) in names\\">
+      <br /> </template
+    ><template
+      :key=\\"ee\\"
+      v-for=\\"(_, ee) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <pre>{{ ee }}</pre></template
+    ><template
+      :key=\\"index\\"
+      v-for=\\"(_, index) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <p>{{ index }}</p> </template
+    ><template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <span>{{ person }}{{ index }}</span> </template
+    ><template
+      :key=\\"count\\"
+      v-for=\\"(person, count) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <span>{{ person }}{{ count }}</span> </template
+    ><template :key=\\"i\\" v-for=\\"(person, i) in names\\">
+      <span>{{ person }}{{ i }}</span> </template
+    ><template
+      :key=\\"index\\"
+      v-for=\\"(person, index) in Array.from({
+        length: 10,
+      })\\"
+    >
+      <span>{{ person }}{{ index }}</span>
+    </template>
+  </main>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > AdvancedRef 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"showInput\\">
+      <input
+        class=\\"input\\"
+        ref=\\"inputRef\\"
+        :value=\\"name\\"
+        @blur=\\"async (event) => onBlur()\\"
+        @change=\\"async (event) => (name = event.target.value)\\"
+      />
+      <label for=\\"cars\\" ref=\\"inputNoArgRef\\"> Choose a car: </label>
+      <select name=\\"cars\\" id=\\"cars\\">
+        <option value=\\"supra\\">GR Supra</option>
+        <option value=\\"86\\">GR 86</option>
+      </select>
+    </template>
+
+    Hello
+    {{ lowerCaseName() }}! I can run in React, Qwik, Vue, Solid, or Web
+    Component!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+export interface Props {
+  showInput: boolean;
+}
+
+const props = defineProps<Props>();
+const name = ref(\\"PatrickJS\\");
+
+const inputRef = ref<HTMLInputElement>(null);
+const inputNoArgRef = ref<HTMLLabelElement>(null);
+
+watch(
+  () => [inputRef.value, inputNoArgRef.value],
+  () => {
+    console.log(\\"Received an update\\");
+  },
+  { immediate: true }
+);
+function onBlur() {
+  // Maintain focus
+  inputRef.value.focus();
+}
+function lowerCaseName() {
+  return name.value.toLowerCase();
+}
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic 1`] = `
+"<template>
+  <div class=\\"test div\\">
+    <input
+      :value=\\"DEFAULT_VALUES.name || name\\"
+      @change=\\"async (myEvent) => (name = myEvent.target.value)\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid! &gt;
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export const DEFAULT_VALUES = {
+  name: \\"Steve\\",
+};
+
+export interface MyBasicComponentProps {
+  id: string;
+}
+
+const name = ref(\\"Steve\\");
+const age = ref<number>(1);
+const sports = ref<Array<string>>([\\"\\"]);
+
+function underscore_fn_name() {
+  return \\"bar\\";
+}
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic 2`] = `
+"<template>
+  <div>
+    <template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <template v-if=\\"person === name\\">
+        <input
+          :value=\\"name\\"
+          @change=\\"
+            async (event) => {
+              name = event.target.value + ' and ' + person;
+            }
+          \\"
+        />
+
+        Hello
+        {{ person }}
+        ! I can run in Qwik, Web Component, React, Vue, Solid, or Liquid!
+      </template>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic Context 1`] = `
+"<template>
+  <div>
+    {{ myService.method(\\"hello\\") + name }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+    <input @change=\\"async (event) => onChange()\\" />
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { inject, onMounted, provide, ref } from \\"vue\\";
+
+import { Injector, MyService, createInjector } from \\"@dummy/injection-js\\";
+
+const name = ref(\\"PatrickJS\\");
+
+const myService = inject(MyService.key);
+
+provide(Injector.key, createInjector());
+
+const hi = myService.method(\\"hi\\");
+console.log(hi);
+onMounted(() => {
+  const bye = myService.method(\\"hi\\");
+  console.log(bye);
+});
+
+function onChange() {
+  const change = myService.method(\\"change\\");
+  console.log(change);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic OnMount Update 1`] = `
+"<template>
+  <div>Hello {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+export interface Props {
+  hi: string;
+  bye: string;
+}
+
+const props = defineProps<Props>();
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+
+name.value = \\"PatrickJS onInit\\" + props.hi;
+onMounted(() => {
+  name.value = \\"PatrickJS onMount\\" + props.bye;
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic Outputs 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"onMessageChange\\", \\"onEvent\\", \\"message\\"]);
+const name = ref(\\"PatrickJS\\");
+
+onMounted(() => {
+  props.onMessageChange(name.value);
+  props.onEvent(props.message);
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Basic Outputs Meta 1`] = `
+"/** useMetadata: {\\"outputs\\":[\\"onMessage\\",\\"onEvent\\"],\\"baz\\":\\"metadata inside
+component\\"} */
+
+<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+const props = defineProps([\\"onMessageChange\\", \\"onEvent\\", \\"message\\"]);
+const name = ref(\\"PatrickJS\\");
+
+onMounted(() => {
+  props.onMessageChange(name.value);
+  props.onEvent(props.message);
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicAttribute 1`] = `
+"<template>
+  <input autocapitalize=\\"on\\" autocomplete=\\"on\\" :spellcheck=\\"true\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicBooleanAttribute 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"$slots.default\\">
+      <slot />
+      {{ type }}
+    </template>
+
+    <MyBooleanAttributeComponent :toggle=\\"true\\"></MyBooleanAttributeComponent
+    ><MyBooleanAttributeComponent :toggle=\\"true\\"></MyBooleanAttributeComponent
+    ><MyBooleanAttributeComponent :list=\\"null\\"></MyBooleanAttributeComponent>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import MyBooleanAttributeComponent from \\"./basic-boolean-attribute-component.raw\\";
+
+type Props = {
+  children: any;
+  type: string;
+};
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicChildComponent 1`] = `
+"<template>
+  <div>
+    <MyBasicComponent :id=\\"dev\\"></MyBasicComponent>
+    <div>
+      <MyBasicOnMountUpdateComponent
+        :hi=\\"name\\"
+        :bye=\\"dev\\"
+      ></MyBasicOnMountUpdateComponent
+      ><MyBasicOutputsComponent
+        message=\\"Test\\"
+        :onMessageChange=\\"(name) => (name = name)\\"
+        :onEvent=\\"(event) => log('Test')\\"
+      ></MyBasicOutputsComponent>
+    </div>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+import MyBasicOnMountUpdateComponent from \\"./basic-onMount-update.raw\\";
+import MyBasicOutputsComponent from \\"./basic-outputs.raw\\";
+import MyBasicComponent from \\"./basic.raw\\";
+
+const name = ref(\\"Steve\\");
+const dev = ref(\\"PatrickJS\\");
+
+function log(message: string) {
+  console.log(message);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicFor 1`] = `
+"<template>
+  <div>
+    <template :key=\\"index\\" v-for=\\"(person, index) in names\\">
+      <input
+        :value=\\"name\\"
+        @change=\\"
+          async (event) => {
+            name = event.target.value + ' and ' + person;
+          }
+        \\"
+      />
+
+      Hello
+      {{ person }}
+      ! I can run in Qwik, Web Component, React, Vue, Solid, or Liquid!
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+const names = ref([\\"Steve\\", \\"PatrickJS\\"]);
+
+onMounted(() => {
+  console.log(\\"onMount code\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicRef 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"showInput\\">
+      <input
+        class=\\"input\\"
+        ref=\\"inputRef\\"
+        :value=\\"name\\"
+        @blur=\\"async (event) => onBlur()\\"
+        @change=\\"async (event) => (name = event.target.value)\\"
+      />
+      <label for=\\"cars\\" ref=\\"inputNoArgRef\\"> Choose a car: </label>
+      <select name=\\"cars\\" id=\\"cars\\">
+        <option value=\\"supra\\">GR Supra</option>
+        <option value=\\"86\\">GR 86</option>
+      </select>
+    </template>
+
+    Hello
+    {{ lowerCaseName() }}! I can run in React, Qwik, Vue, Solid, or Web
+    Component!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export interface Props {
+  showInput: boolean;
+}
+
+const props = defineProps<Props>();
+const name = ref(\\"PatrickJS\\");
+
+const inputRef = ref<HTMLInputElement | null>(null);
+const inputNoArgRef = ref<HTMLLabelElement | null>(null);
+
+function onBlur() {
+  // Maintain focus
+  inputRef.value?.focus();
+}
+function lowerCaseName() {
+  return name.value.toLowerCase();
+}
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicRefAssignment 1`] = `
+"<template>
+  <div><button @click=\\"await handlerClick($event)\\">Click</button></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export interface Props {
+  showInput: boolean;
+}
+
+const holdValueRef = ref<any>(null);
+
+function handlerClick(event: Event) {
+  event.preventDefault();
+  console.log(\\"current value\\", holdValueRef.value);
+  holdValueRef.value = holdValueRef.value + \\"JS\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > BasicRefPrevious 1`] = `
+"<template>
+  <div>
+    <h1>Now: {{ count }}, before: {{ prevCount }}</h1>
+    <button @click=\\"async (event) => (count += 1)\\">Increment</button>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+export function usePrevious<T>(value: T) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  let ref = useRef<T>(null); // Store current value in ref
+
+  onUpdate(() => {
+    ref = value;
+  }, [value]); // Only re-run if value changes
+  // Return previous value (happens before update in useEffect above)
+
+  return ref;
+}
+
+export interface Props {
+  showInput: boolean;
+}
+
+const count = ref(0);
+
+const prevCount = ref<any>(null);
+
+watch(
+  () => [count.value],
+  () => {
+    prevCount.value = count.value;
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Button 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button type=\\"button\\" v-bind=\\"attributes\\">{{ text }}</button>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface ButtonProps {
+  attributes?: any;
+  text?: string;
+  link?: string;
+  openLinkInNewTab?: boolean;
+}
+
+const props = defineProps<ButtonProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Columns 1`] = `
+"<template>
+  <div class=\\"builder-columns div\\">
+    <template :key=\\"index\\" v-for=\\"(column, index) in columns\\">
+      <div class=\\"builder-column div-2\\">{{ column.content }}{{ index }}</div>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+type Column = {
+  content: any; // TODO: Implement this when support for dynamic CSS lands
+
+  width?: number;
+};
+export interface ColumnProps {
+  columns?: Column[]; // TODO: Implement this when support for dynamic CSS lands
+
+  space?: number; // TODO: Implement this when support for dynamic CSS lands
+
+  stackColumnsAt?: \\"tablet\\" | \\"mobile\\" | \\"never\\"; // TODO: Implement this when support for dynamic CSS lands
+
+  reverseColumnsWhenStacked?: boolean;
+}
+
+const props = defineProps<ColumnProps>();
+
+function getColumns() {
+  return props.columns || [];
+}
+function getGutterSize() {
+  return typeof props.space === \\"number\\" ? props.space || 0 : 20;
+}
+function getWidth(index: number) {
+  const columns = getColumns();
+  return (columns[index] && columns[index].width) || 100 / columns.length;
+}
+function getColumnCssWidth(index: number) {
+  const columns = getColumns();
+  const gutterSize = getGutterSize();
+  const subtractWidth = (gutterSize * (columns.length - 1)) / columns.length;
+  return \`calc(\${getWidth(index)}% - \${subtractWidth}px)\`;
+}
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: normal;
+}
+@media (max-width: 999px) {
+  .div {
+    flex-direction: row;
+  }
+}
+@media (max-width: 639px) {
+  .div {
+    flex-direction: row-reverse;
+  }
+}
+.div-2 {
+  flex-grow: 1;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > ContentSlotHtml 1`] = `
+"<template>
+  <div>
+    <slot name=\\"testing\\"></slot>
+    <div><hr /></div>
+    <div><slot /></div>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { useSlots } from \\"vue\\";
+
+import type { JSX } from \\"../../../../jsx-runtime\\";
+
+type Props = {
+  [key: string]: string | JSX.Element;
+  slotTesting: JSX.Element;
+};
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > ContentSlotJSX 1`] = `
+"<template>
+  <template v-if=\\"$slots.reference\\">
+    <div
+      :name=\\"$slots.content ? 'name1' : 'name2'\\"
+      :title=\\"$slots.content ? 'title1' : 'title2'\\"
+      @click=\\"async (event) => show()\\"
+      :class=\\"cls\\"
+      v-bind=\\"attributes\\"
+    >
+      <template v-if=\\"showContent && $slots.content\\">
+        <slot name=\\"content\\">{{ content }}</slot>
+      </template>
+
+      <div><hr /></div>
+      <div><slot /></div>
+    </div>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, ref, useSlots } from \\"vue\\";
+
+import type { JSX } from \\"../../../../jsx-runtime\\";
+
+type Props = {
+  [key: string]: string | JSX.Element;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  children: undefined,
+  attributes: undefined,
+  content: \\"\\",
+});
+const name = ref(\\"king\\");
+const showContent = ref(false);
+
+const cls = computed(() => {
+  return useSlots().content && useSlots().default
+    ? \`\${name.value}-content\`
+    : \\"\\";
+});
+
+function show() {
+  useSlots().content ? 1 : \\"\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > CustomCode 1`] = `
+"<template>
+  <div
+    ref=\\"elem\\"
+    :class=\\"'builder-custom-code' + (replaceNodes ? ' replace-nodes' : '')\\"
+    v-html=\\"code\\"
+  ></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+export interface CustomCodeProps {
+  code: string;
+  replaceNodes?: boolean;
+}
+
+const props = defineProps<CustomCodeProps>();
+const scriptsInserted = ref([]);
+const scriptsRun = ref([]);
+
+const elem = ref<HTMLDivElement>(null);
+
+onMounted(() => {
+  findAndRunScripts();
+});
+
+function findAndRunScripts() {
+  // TODO: Move this function to standalone one in '@builder.io/utils'
+  if (elem.value && typeof window !== \\"undefined\\") {
+    /** @type {HTMLScriptElement[]} */
+    const scripts = elem.value.getElementsByTagName(\\"script\\");
+
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+
+      if (script.src) {
+        if (scriptsInserted.value.includes(script.src)) {
+          continue;
+        }
+
+        scriptsInserted.value.push(script.src);
+        const newScript = document.createElement(\\"script\\");
+        newScript.async = true;
+        newScript.src = script.src;
+        document.head.appendChild(newScript);
+      } else if (
+        !script.type ||
+        [
+          \\"text/javascript\\",
+          \\"application/javascript\\",
+          \\"application/ecmascript\\",
+        ].includes(script.type)
+      ) {
+        if (scriptsRun.value.includes(script.innerText)) {
+          continue;
+        }
+
+        try {
+          scriptsRun.value.push(script.innerText);
+          new Function(script.innerText)();
+        } catch (error) {
+          console.warn(\\"\`CustomCode\`: Error running script:\\", error);
+        }
+      }
+    }
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Embed 1`] = `
+"<template>
+  <div
+    ref=\\"elem\\"
+    :class=\\"'builder-custom-code' + (replaceNodes ? ' replace-nodes' : '')\\"
+    v-html=\\"code\\"
+  ></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+export interface CustomCodeProps {
+  code: string;
+  replaceNodes?: boolean;
+}
+
+const props = defineProps<CustomCodeProps>();
+const scriptsInserted = ref([]);
+const scriptsRun = ref([]);
+
+const elem = ref<HTMLDivElement>(null);
+
+onMounted(() => {
+  findAndRunScripts();
+});
+
+function findAndRunScripts() {
+  // TODO: Move this function to standalone one in '@builder.io/utils'
+  if (elem.value && typeof window !== \\"undefined\\") {
+    /** @type {HTMLScriptElement[]} */
+    const scripts = elem.value.getElementsByTagName(\\"script\\");
+
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i];
+
+      if (script.src) {
+        if (scriptsInserted.value.includes(script.src)) {
+          continue;
+        }
+
+        scriptsInserted.value.push(script.src);
+        const newScript = document.createElement(\\"script\\");
+        newScript.async = true;
+        newScript.src = script.src;
+        document.head.appendChild(newScript);
+      } else if (
+        !script.type ||
+        [
+          \\"text/javascript\\",
+          \\"application/javascript\\",
+          \\"application/ecmascript\\",
+        ].includes(script.type)
+      ) {
+        if (scriptsRun.value.includes(script.innerText)) {
+          continue;
+        }
+
+        try {
+          scriptsRun.value.push(script.innerText);
+          new Function(script.innerText)();
+        } catch (error) {
+          console.warn(\\"\`CustomCode\`: Error running script:\\", error);
+        }
+      }
+    }
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Form 1`] = `
+"<template>
+  <form
+    :validate=\\"validate\\"
+    ref=\\"formRef\\"
+    :action=\\"!sendWithJs && action\\"
+    :method=\\"method\\"
+    :name=\\"name\\"
+    @submit=\\"async (event) => onSubmit(event)\\"
+    v-bind=\\"attributes\\"
+  >
+    <template v-if=\\"builderBlock && builderBlock.children\\">
+      <template
+        :key=\\"block.id\\"
+        v-for=\\"(block, index) in builderBlock?.children\\"
+      >
+        <BuilderBlockComponent
+          :block=\\"block\\"
+          :index=\\"index\\"
+        ></BuilderBlockComponent>
+      </template>
+    </template>
+
+    <template v-if=\\"submissionState === 'error'\\">
+      <BuilderBlocks
+        dataPath=\\"errorMessage\\"
+        :blocks=\\"errorMessage\\"
+      ></BuilderBlocks>
+    </template>
+
+    <template v-if=\\"submissionState === 'sending'\\">
+      <BuilderBlocks
+        dataPath=\\"sendingMessage\\"
+        :blocks=\\"sendingMessage\\"
+      ></BuilderBlocks>
+    </template>
+
+    <template v-if=\\"submissionState === 'error' && responseData\\">
+      <pre class=\\"builder-form-error-text pre\\">{{
+        JSON.stringify(responseData, null, 2)
+      }}</pre>
+    </template>
+
+    <template v-if=\\"submissionState === 'success'\\">
+      <BuilderBlocks
+        dataPath=\\"successMessage\\"
+        :blocks=\\"successMessage\\"
+      ></BuilderBlocks>
+    </template>
+  </form>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, ref } from \\"vue\\";
+
+import { Builder, BuilderElement, builder } from \\"@builder.io/sdk\\";
+import {
+  BuilderBlock as BuilderBlockComponent,
+  BuilderBlocks,
+  get,
+  set,
+} from \\"@fake\\";
+
+export interface FormProps {
+  attributes?: any;
+  name?: string;
+  action?: string;
+  validate?: boolean;
+  method?: string;
+  builderBlock?: BuilderElement;
+  sendSubmissionsTo?: string;
+  sendSubmissionsToEmail?: string;
+  sendWithJs?: boolean;
+  contentType?: string;
+  customHeaders?: {
+    [key: string]: string;
+  };
+  successUrl?: string;
+  previewState?: FormState;
+  successMessage?: BuilderElement[];
+  errorMessage?: BuilderElement[];
+  sendingMessage?: BuilderElement[];
+  resetFormOnSubmit?: boolean;
+  errorMessagePath?: string;
+}
+export type FormState = \\"unsubmitted\\" | \\"sending\\" | \\"success\\" | \\"error\\";
+
+const props = defineProps<FormProps>();
+const formState = ref(\\"unsubmitted\\");
+const responseData = ref(null);
+const formErrorMessage = ref(\\"\\");
+
+const formRef = ref<HTMLFormElement>(null);
+
+const submissionState = computed(() => {
+  return (Builder.isEditing && props.previewState) || formState.value;
+});
+
+function onSubmit(
+  event: Event & {
+    currentTarget: HTMLFormElement;
+  }
+) {
+  const sendWithJs = props.sendWithJs || props.sendSubmissionsTo === \\"email\\";
+
+  if (props.sendSubmissionsTo === \\"zapier\\") {
+    event.preventDefault();
+  } else if (sendWithJs) {
+    if (!(props.action || props.sendSubmissionsTo === \\"email\\")) {
+      event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    const el = event.currentTarget;
+    const headers = props.customHeaders || {};
+    let body: any;
+    const formData = new FormData(el); // TODO: maybe support null
+
+    const formPairs: {
+      key: string;
+      value: File | boolean | number | string | FileList;
+    }[] = Array.from(
+      event.currentTarget.querySelectorAll(\\"input,select,textarea\\")
+    )
+      .filter((el) => !!(el as HTMLInputElement).name)
+      .map((el) => {
+        let value: any;
+        const key = (el as HTMLImageElement).name;
+
+        if (el instanceof HTMLInputElement) {
+          if (el.type === \\"radio\\") {
+            if (el.checked) {
+              value = el.name;
+              return {
+                key,
+                value,
+              };
+            }
+          } else if (el.type === \\"checkbox\\") {
+            value = el.checked;
+          } else if (el.type === \\"number\\" || el.type === \\"range\\") {
+            const num = el.valueAsNumber;
+
+            if (!isNaN(num)) {
+              value = num;
+            }
+          } else if (el.type === \\"file\\") {
+            // TODO: one vs multiple files
+            value = el.files;
+          } else {
+            value = el.value;
+          }
+        } else {
+          value = (el as HTMLInputElement).value;
+        }
+
+        return {
+          key,
+          value,
+        };
+      });
+    let contentType = props.contentType;
+
+    if (props.sendSubmissionsTo === \\"email\\") {
+      contentType = \\"multipart/form-data\\";
+    }
+
+    Array.from(formPairs).forEach(({ value }) => {
+      if (
+        value instanceof File ||
+        (Array.isArray(value) && value[0] instanceof File) ||
+        value instanceof FileList
+      ) {
+        contentType = \\"multipart/form-data\\";
+      }
+    }); // TODO: send as urlEncoded or multipart by default
+    // because of ease of use and reliability in browser API
+    // for encoding the form?
+
+    if (contentType !== \\"application/json\\") {
+      body = formData;
+    } else {
+      // Json
+      const json = {};
+      Array.from(formPairs).forEach(({ value, key }) => {
+        set(json, key, value);
+      });
+      body = JSON.stringify(json);
+    }
+
+    if (contentType && contentType !== \\"multipart/form-data\\") {
+      if (
+        /* Zapier doesn't allow content-type header to be sent from browsers */
+        !(sendWithJs && props.action?.includes(\\"zapier.com\\"))
+      ) {
+        headers[\\"content-type\\"] = contentType;
+      }
+    }
+
+    const presubmitEvent = new CustomEvent(\\"presubmit\\", {
+      detail: {
+        body,
+      },
+    });
+
+    if (formRef.value) {
+      formRef.value.dispatchEvent(presubmitEvent);
+
+      if (presubmitEvent.defaultPrevented) {
+        return;
+      }
+    }
+
+    formState.value = \\"sending\\";
+    const formUrl = \`\${
+      builder.env === \\"dev\\" ? \\"http://localhost:5000\\" : \\"https://builder.io\\"
+    }/api/v1/form-submit?apiKey=\${builder.apiKey}&to=\${btoa(
+      props.sendSubmissionsToEmail || \\"\\"
+    )}&name=\${encodeURIComponent(props.name || \\"\\")}\`;
+    fetch(
+      props.sendSubmissionsTo === \\"email\\" ? formUrl : props.action!,
+      /* TODO: throw error if no action URL */
+      {
+        body,
+        headers,
+        method: props.method || \\"post\\",
+      }
+    ).then(
+      async (res) => {
+        let body;
+        const contentType = res.headers.get(\\"content-type\\");
+
+        if (contentType && contentType.indexOf(\\"application/json\\") !== -1) {
+          body = await res.json();
+        } else {
+          body = await res.text();
+        }
+
+        if (!res.ok && props.errorMessagePath) {
+          /* TODO: allow supplying an error formatter function */
+          let message = get(body, props.errorMessagePath);
+
+          if (message) {
+            if (typeof message !== \\"string\\") {
+              /* TODO: ideally convert json to yaml so it woul dbe like
+         error: - email has been taken */
+              message = JSON.stringify(message);
+            }
+
+            formErrorMessage.value = message;
+          }
+        }
+
+        responseData.value = body;
+        formState.value = res.ok ? \\"success\\" : \\"error\\";
+
+        if (res.ok) {
+          const submitSuccessEvent = new CustomEvent(\\"submit:success\\", {
+            detail: {
+              res,
+              body,
+            },
+          });
+
+          if (formRef.value) {
+            formRef.value.dispatchEvent(submitSuccessEvent);
+
+            if (submitSuccessEvent.defaultPrevented) {
+              return;
+            }
+            /* TODO: option to turn this on/off? */
+
+            if (props.resetFormOnSubmit !== false) {
+              formRef.value.reset();
+            }
+          }
+          /* TODO: client side route event first that can be preventDefaulted */
+
+          if (props.successUrl) {
+            if (formRef.value) {
+              const event = new CustomEvent(\\"route\\", {
+                detail: {
+                  url: props.successUrl,
+                },
+              });
+              formRef.value.dispatchEvent(event);
+
+              if (!event.defaultPrevented) {
+                location.href = props.successUrl;
+              }
+            } else {
+              location.href = props.successUrl;
+            }
+          }
+        }
+      },
+      (err) => {
+        const submitErrorEvent = new CustomEvent(\\"submit:error\\", {
+          detail: {
+            error: err,
+          },
+        });
+
+        if (formRef.value) {
+          formRef.value.dispatchEvent(submitErrorEvent);
+
+          if (submitErrorEvent.defaultPrevented) {
+            return;
+          }
+        }
+
+        responseData.value = err;
+        formState.value = \\"error\\";
+      }
+    );
+  }
+}
+</script>
+
+<style scoped>
+.pre {
+  padding: 10px;
+  color: red;
+  text-align: center;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Image 1`] = `
+"<template>
+  <div>
+    <picture ref=\\"pictureRef\\">
+      <template v-if=\\"!useLazyLoading() || load\\">
+        <img
+          :alt=\\"altText\\"
+          :aria-role=\\"altText ? 'presentation' : undefined\\"
+          :class=\\"'builder-image' + (_class ? ' ' + _class : '') + ' img'\\"
+          :src=\\"image\\"
+          @load=\\"async (event) => setLoaded()\\"
+          :srcset=\\"srcset\\"
+          :sizes=\\"sizes\\"
+        />
+      </template>
+
+      <source :srcset=\\"srcset\\" /></picture
+    ><slot />
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, onUnmounted, ref } from \\"vue\\";
+
+// TODO: AMP Support?
+export interface ImageProps {
+  _class?: string;
+  image: string;
+  sizes?: string;
+  lazy?: boolean;
+  height?: number;
+  width?: number;
+  altText?: string;
+  backgroundSize?: string;
+  backgroundPosition?: string; // TODO: Support generating Builder.io and or Shopify \`srcset\`s when needed
+
+  srcset?: string; // TODO: Implement support for custom aspect ratios
+
+  aspectRatio?: number; // TODO: This might not work as expected in terms of positioning
+
+  children?: any;
+}
+
+const props = defineProps<ImageProps>();
+const scrollListener = ref(null);
+const imageLoaded = ref(false);
+const load = ref(false);
+
+const pictureRef = ref<HTMLElement>(null);
+
+onMounted(() => {
+  if (useLazyLoading()) {
+    // throttled scroll capture listener
+    const listener = () => {
+      if (pictureRef.value) {
+        const rect = pictureRef.value.getBoundingClientRect();
+        const buffer = window.innerHeight / 2;
+
+        if (rect.top < window.innerHeight + buffer) {
+          load.value = true;
+          scrollListener.value = null;
+          window.removeEventListener(\\"scroll\\", listener);
+        }
+      }
+    };
+
+    scrollListener.value = listener;
+    window.addEventListener(\\"scroll\\", listener, {
+      capture: true,
+      passive: true,
+    });
+    listener();
+  }
+});
+onUnmounted(() => {
+  if (scrollListener.value) {
+    window.removeEventListener(\\"scroll\\", scrollListener.value);
+  }
+});
+
+function setLoaded() {
+  imageLoaded.value = true;
+}
+function useLazyLoading() {
+  // TODO: Add more checks here, like testing for real web browsers
+  return !!props.lazy && isBrowser();
+}
+function isBrowser() {
+  return (
+    typeof window !== \\"undefined\\" && window.navigator.product != \\"ReactNative\\"
+  );
+}
+</script>
+
+<style scoped>
+.img {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  object-fit: cover;
+  object-position: center;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Image State 1`] = `
+"<template>
+  <div>
+    <template :key=\\"itemIndex\\" v-for=\\"(item, itemIndex) in images\\">
+      <img class=\\"custom-class\\" :src=\\"item\\" :key=\\"itemIndex\\" />
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const canShow = ref(true);
+const images = ref([\\"http://example.com/qwik.png\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Img 1`] = `
+"<template>
+  <img
+    :style=\\"{
+      objectFit: backgroundSize || 'cover',
+      objectPosition: backgroundPosition || 'center',
+    }\\"
+    :key=\\"(Builder.isEditing && imgSrc) || 'default-key'\\"
+    :alt=\\"altText\\"
+    :src=\\"imgSrc\\"
+    v-bind=\\"attributes\\"
+  />
+</template>
+
+<script setup lang=\\"ts\\">
+import { Builder } from \\"@builder.io/sdk\\";
+
+export interface ImgProps {
+  attributes?: any;
+  imgSrc?: string;
+  altText?: string;
+  backgroundSize?: \\"cover\\" | \\"contain\\";
+  backgroundPosition?:
+    | \\"center\\"
+    | \\"top\\"
+    | \\"left\\"
+    | \\"right\\"
+    | \\"bottom\\"
+    | \\"top left\\"
+    | \\"top right\\"
+    | \\"bottom left\\"
+    | \\"bottom right\\";
+}
+
+const props = defineProps<ImgProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Input 1`] = `
+"<template>
+  <input
+    :key=\\"Builder.isEditing && defaultValue ? defaultValue : 'default-key'\\"
+    :placeholder=\\"placeholder\\"
+    :type=\\"type\\"
+    :name=\\"name\\"
+    :value=\\"value\\"
+    :defaultValue=\\"defaultValue\\"
+    :required=\\"required\\"
+    @change=\\"async (event) => onChange?.(event.target.value)\\"
+    v-bind=\\"attributes\\"
+  />
+</template>
+
+<script setup lang=\\"ts\\">
+import { Builder } from \\"@builder.io/sdk\\";
+
+export interface FormInputProps {
+  type?: string;
+  attributes?: any;
+  name?: string;
+  value?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  required?: boolean;
+  onChange?: (value: string) => void;
+}
+
+const props = defineProps<FormInputProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > InputParent 1`] = `
+"<template>
+  <FormInputComponent
+    name=\\"kingzez\\"
+    type=\\"text\\"
+    :onChange=\\"(value) => handleChange(value)\\"
+  ></FormInputComponent>
+</template>
+
+<script setup lang=\\"ts\\">
+import FormInputComponent from \\"./input.raw\\";
+
+function handleChange(value: string) {
+  console.log(value);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > NestedStore 1`] = `
+"<template>
+  <div :id=\\"_id\\">
+    Test
+    <p :id=\\"_messageId\\">Message</p>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+type MyStore = {
+  _id?: string;
+  _messageId?: string;
+};
+
+const _id = ref<MyStore[\\"_id\\"]>(\\"abc\\");
+const _messageId = ref<MyStore[\\"_messageId\\"]>(_id.value + \\"-message\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > RawText 1`] = `
+"<template>
+  <span
+    :class=\\"attributes?.class || attributes?.className\\"
+    v-html=\\"text || ''\\"
+  ></span>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface RawTextProps {
+  attributes?: any;
+  text?: string; // builderBlock?: any;
+}
+
+const props = defineProps<RawTextProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Section 1`] = `
+"<template>
+  <section
+    :style=\\"
+      maxWidth && typeof maxWidth === 'number'
+        ? {
+            maxWidth: maxWidth,
+          }
+        : undefined
+    \\"
+    v-bind=\\"attributes\\"
+  >
+    <slot />
+  </section>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface SectionProps {
+  maxWidth?: number;
+  attributes?: any;
+  children?: any;
+}
+
+const props = defineProps<SectionProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Section 2`] = `
+"<template>
+  <template v-if=\\"max\\">
+    <template :key=\\"index\\" v-for=\\"(item, index) in items\\">
+      <section
+        :style=\\"{
+          maxWidth: item + max,
+        }\\"
+        v-bind=\\"attributes\\"
+      >
+        <slot />
+      </section>
+    </template>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export interface SectionProps {
+  maxWidth?: number;
+  attributes?: any;
+  children?: any;
+}
+
+const props = defineProps<SectionProps>();
+const max = ref(42);
+const items = ref([42]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Select 1`] = `
+"<template>
+  <select
+    :value=\\"value\\"
+    :key=\\"Builder.isEditing && defaultValue ? defaultValue : 'default-key'\\"
+    :defaultValue=\\"defaultValue\\"
+    :name=\\"name\\"
+    v-bind=\\"attributes\\"
+  >
+    <template :key=\\"index\\" v-for=\\"(option, index) in options\\">
+      <option :value=\\"option.value\\" :data-index=\\"index\\">
+        {{ option.name || option.value }}
+      </option>
+    </template>
+  </select>
+</template>
+
+<script setup lang=\\"ts\\">
+import { Builder } from \\"@builder.io/sdk\\";
+
+export interface FormSelectProps {
+  options?: {
+    name?: string;
+    value: string;
+  }[];
+  attributes?: any;
+  name?: string;
+  value?: string;
+  defaultValue?: string;
+}
+
+const props = defineProps<FormSelectProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > SlotDefault 1`] = `
+"<template>
+  <div>
+    <slot><div class=\\"default-slot\\">Default content</div></slot>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+type Props = {
+  [key: string]: string;
+};
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > SlotHtml 1`] = `
+"<template>
+  <div>
+    <ContentSlotCode>
+      <template #testing>
+        <div>Hello</div>
+      </template>
+    </ContentSlotCode>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import ContentSlotCode from \\"./content-slot-jsx.raw\\";
+
+type Props = {
+  [key: string]: string;
+};
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > SlotJsx 1`] = `
+"<template>
+  <div><ContentSlotCode :slotTesting=\\"<div>Hello</div>\\"></ContentSlotCode></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import ContentSlotCode from \\"./content-slot-jsx.raw\\";
+
+type Props = {
+  [key: string]: string;
+};
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > SlotNamed 1`] = `
+"<template>
+  <div>
+    <slot name=\\"my-awesome-slot\\"></slot><slot name=\\"top\\"></slot
+    ><slot name=\\"left\\">Default left</slot><slot>Default Child</slot>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+type Props = {
+  [key: string]: string;
+};
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Stamped.io 1`] = `
+"<template>
+  <div :data-user=\\"name\\">
+    <button @click=\\"async (event) => (showReviewPrompt = true)\\">
+      Write a review
+    </button>
+    <template v-if=\\"showReviewPrompt || 'asdf'\\">
+      <input placeholder=\\"Email\\" />
+      <input placeholder=\\"Title\\" class=\\"input\\" />
+      <textarea
+        placeholder=\\"How was your experience?\\"
+        class=\\"textarea\\"
+      ></textarea>
+      <button
+        class=\\"button\\"
+        @click=\\"
+          async (ev) => {
+            ev.preventDefault();
+            showReviewPrompt = false;
+          }
+        \\"
+      >
+        Submit
+      </button>
+    </template>
+
+    <template :key=\\"review.id\\" v-for=\\"(review, index) in reviews\\">
+      <div class=\\"review\\">
+        <img class=\\"img\\" :src=\\"review.avatar\\" />
+        <div :class=\\"showReviewPrompt ? 'bg-primary' : 'bg-secondary'\\">
+          <div>N: {{ index }}</div>
+          <div>{{ review.author }}</div>
+          <div>{{ review.reviewMessage }}</div>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+import { kebabCase, snakeCase } from \\"lodash\\";
+
+type SmileReviewsProps = {
+  productId: string;
+  apiKey: string;
+};
+
+const props = defineProps<SmileReviewsProps>();
+const reviews = ref([]);
+const name = ref(\\"test\\");
+const showReviewPrompt = ref(false);
+
+onMounted(() => {
+  fetch(
+    \`https://stamped.io/api/widget/reviews?storeUrl=builder-io.myshopify.com&apiKey=\${
+      props.apiKey || \\"pubkey-8bbDq7W6w4sB3OWeM1HUy2s47702hM\\"
+    }&productId=\${props.productId || \\"2410511106127\\"}\`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      reviews.value = data.data;
+    });
+});
+
+function kebabCaseValue() {
+  return kebabCase(\\"testThat\\");
+}
+function snakeCaseValue() {
+  return snakeCase(\\"testThis\\");
+}
+</script>
+
+<style scoped>
+.input {
+  display: block;
+}
+.textarea {
+  display: block;
+}
+.button {
+  display: block;
+}
+.review {
+  margin: 10px;
+  padding: 10px;
+  background: white;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  -webkit-font-smoothing: antialiased;
+}
+.img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > StoreComment 1`] = `
+"<template>
+  {{ foo }}
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const foo = ref(true);
+
+function bar() {}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > StoreShadowVars 1`] = `
+"<template>
+  {{ foo(errors) }}
+</template>
+
+<script setup lang=\\"ts\\">
+   import { ref } from \\"vue\\"
+
+
+
+
+
+
+
+
+
+   const errors= ref({})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function foo(errors.value) {
+return errors.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > StoreWithState 1`] = `
+"<template>
+  {{ bar() }}
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const foo = ref(false);
+
+function bar() {
+  return foo.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Submit 1`] = `
+"<template>
+  <button type=\\"submit\\" v-bind=\\"attributes\\">{{ text }}</button>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface ButtonProps {
+  attributes?: any;
+  text?: string;
+}
+
+const props = defineProps<ButtonProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Text 1`] = `
+"<template>
+  <div
+    :contentEditable=\\"allowEditingText || undefined\\"
+    :data-name=\\"{
+      test: name || 'any name',
+    }\\"
+    v-html=\\"text || content || name || '<p class=\\\\'text-lg\\\\'>my name</p>'\\"
+  ></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+import { Builder } from \\"@builder.io/sdk\\";
+
+export interface TextProps {
+  attributes?: any;
+  rtlMode: boolean;
+  text?: string;
+  content?: string;
+  builderBlock?: any;
+}
+
+const props = defineProps<TextProps>();
+const name = ref(\\"Decadef20\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Textarea 1`] = `
+"<template>
+  <textarea
+    :placeholder=\\"placeholder\\"
+    :name=\\"name\\"
+    :value=\\"value\\"
+    :defaultValue=\\"defaultValue\\"
+    v-bind=\\"attributes\\"
+  ></textarea>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface TextareaProps {
+  attributes?: any;
+  name?: string;
+  value?: string;
+  defaultValue?: string;
+  placeholder?: string;
+}
+
+const props = defineProps<TextareaProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > UseValueAndFnFromStore 1`] = `
+"<template>
+  <div>Test</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onUpdated, ref } from \\"vue\\";
+
+type MyProps = {
+  onChange?: (active: boolean) => void;
+};
+type MyStore = {
+  _id?: string;
+  _active?: boolean;
+  _do?: (id?: string) => void;
+};
+
+const props = defineProps<MyProps>();
+const _id = ref<MyStore[\\"_id\\"]>(\\"abc\\");
+const _active = ref<MyStore[\\"_active\\"]>(false);
+
+onUpdated(() => {
+  if (_do) {
+    _do(_id.value);
+  }
+});
+
+function _do(id?: string): ReturnType<MyStore[\\"_do\\"]> {
+  _active.value = !!id;
+
+  if (props.onChange) {
+    props.onChange(_active.value);
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > Video 1`] = `
+"<template>
+  <video
+    preload=\\"none\\"
+    :style=\\"{
+      width: '100%',
+      height: '100%',
+      ...attributes?.style,
+      objectFit: fit,
+      objectPosition: position,
+      // Hack to get object fit to work as expected and
+      // not have the video overflow
+      borderRadius: 1,
+    }\\"
+    :key=\\"video || 'no-src'\\"
+    :poster=\\"posterImage\\"
+    :autoplay=\\"autoPlay\\"
+    :muted=\\"muted\\"
+    :controls=\\"controls\\"
+    :loop=\\"loop\\"
+    v-bind=\\"attributes\\"
+  ></video>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface VideoProps {
+  attributes?: any;
+  video?: string;
+  autoPlay?: boolean;
+  controls?: boolean;
+  muted?: boolean;
+  loop?: boolean;
+  playsInline?: boolean;
+  aspectRatio?: number;
+  width?: number;
+  height?: number;
+  fit?: \\"contain\\" | \\"cover\\" | \\"fill\\";
+  position?:
+    | \\"center\\"
+    | \\"top\\"
+    | \\"left\\"
+    | \\"right\\"
+    | \\"bottom\\"
+    | \\"top left\\"
+    | \\"top right\\"
+    | \\"bottom left\\"
+    | \\"bottom right\\";
+  posterImage?: string;
+  lazyLoad?: boolean;
+}
+
+const props = defineProps<VideoProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > arrowFunctionInUseStore 1`] = `
+"<template>
+  <div>Hello {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const name = ref(\\"steve\\");
+
+function setName(value) {
+  name.value = value;
+}
+function updateNameWithArrowFn(value) {
+  name.value = value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicForFragment 1`] = `
+"<template>
+  <div>
+    <template :key=\\"\`key-\${option}\`\\" v-for=\\"(option, index) in ['a', 'b', 'c']\\">
+      <div>{{ option }}</div> </template
+    ><template
+      :key=\\"\`\${id}-\${option}\`\\"
+      v-for=\\"(option, index) in ['a', 'b', 'c']\\"
+    >
+      <div>{{ option }}</div> </template
+    ><select>
+      <template
+        :key=\\"\`\${id}-\${option}\`\\"
+        v-for=\\"(option, index) in ['d', 'e', 'f']\\"
+      >
+        <option :value=\\"option\\">{{ option }}</option>
+      </template>
+    </select>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const id = ref(\\"xyz\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicForNoTagReference 1`] = `
+"<template>
+  <component :is=\\"TagNameGetter\\">
+    Hello <component :is=\\"tag\\">{{ name }}</component
+    ><template :key=\\"index\\" v-for=\\"(action, index) in actions\\">
+      <component :is=\\"TagName\\"
+        ><component :is=\\"action.icon\\"></component
+        ><span>{{ action.text }}</span></component
+      >
+    </template></component
+  >
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, ref } from \\"vue\\";
+
+const props = defineProps([\\"actions\\"]);
+const name = ref(\\"VincentW\\");
+const TagName = ref(\\"div\\");
+const tag = ref(\\"span\\");
+
+const TagNameGetter = computed(() => {
+  return \\"span\\";
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicForwardRef 1`] = `
+"<template>
+  <div>
+    <input
+      class=\\"input\\"
+      ref=\\"inputRef\\"
+      :value=\\"name\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export interface Props {
+  showInput: boolean;
+  inputRef: HTMLInputElement;
+}
+
+const props = defineProps<Props>();
+const name = ref(\\"PatrickJS\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicForwardRefMetadata 1`] = `
+"/** useMetadata: {\\"forwardRef\\":\\"inputRef\\"} */
+
+<template>
+  <div>
+    <input
+      class=\\"input\\"
+      ref=\\"inputRef\\"
+      :value=\\"name\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export interface Props {
+  showInput: boolean;
+  inputRef: HTMLInputElement;
+}
+
+const props = defineProps<Props>();
+const name = ref(\\"PatrickJS\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicOnUpdateReturn 1`] = `
+"<template>
+  <div>Hello! {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+const name = ref(\\"PatrickJS\\");
+
+watch(
+  () => [name.value],
+  () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch(\\"https://patrickjs.com/api/resource.json\\", {
+      signal,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        name.value = data.name.value;
+      });
+    return () => {
+      if (!signal.aborted) {
+        controller.abort();
+      }
+    };
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicRefAttributePassing 1`] = `
+"/** useMetadata: {\\"attributePassing\\":{\\"enabled\\":true}} */
+
+<template>
+  <button ref=\\"buttonRef\\">Attribute Passing</button>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+const buttonRef = ref<HTMLButtonElement | null>(null);
+
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > basicRefAttributePassingCustomRef 1`] = `
+"/** useMetadata: {\\"attributePassing\\":{\\"enabled\\":true,\\"customRef\\":\\"buttonRef\\"}}
+*/
+
+<template>
+  <div><button ref=\\"buttonRef\\">Attribute Passing</button></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const buttonRef = ref<HTMLButtonElement | null>(null);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > class + ClassName + css 1`] = `
+"<template>
+  <div>
+    <MyComp class=\\"test\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </MyComp>
+    <div class=\\"test2 test div\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </div>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import MyComp from \\"./my-component.vue\\";
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > class + css 1`] = `
+"<template>
+  <div class=\\"test div\\">Hello! I can run in React, Vue, Solid, or Liquid!</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > className + css 1`] = `
+"<template>
+  <div class=\\"test div\\">Hello! I can run in React, Vue, Solid, or Liquid!</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > className 1`] = `
+"<template>
+  <div>
+    <div class=\\"no binding\\">Without Binding</div>
+    <div :class=\\"bindings\\">With binding</div>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+import type { JSX } from \\"../../../../jsx-runtime\\";
+
+type Props = {
+  [key: string]: string | JSX.Element;
+  slotTesting: JSX.Element;
+};
+
+const bindings = ref(\\"a binding\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > classState 1`] = `
+"<template>
+  <div :class=\\"classState + ' div'\\" :style=\\"styleState\\">
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const classState = ref(\\"testClassName\\");
+const styleState = ref({
+  color: \\"red\\",
+});
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > classnameProps 1`] = `
+"/** useMetadata:
+{\\"stencil\\":{\\"propOptions\\":{\\"className\\":{\\"attribute\\":\\"classname\\",\\"mutable\\":false,\\"reflect\\":false}}}}
+*/
+
+<template>
+  <div :class=\\"className\\">
+    <slot />{{ type }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+type Props = {
+  children: any;
+  className: string;
+  type: string;
+};
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > complexMeta 1`] = `
+"/** useMetadata:
+{\\"x\\":\\"y\\",\\"asdf\\":{\\"stringValue\\":\\"d\\",\\"booleanValue\\":true,\\"numberValue\\":1,\\"innerObject\\":{\\"stringValue\\":\\"inner\\",\\"numberValue\\":2,\\"booleanValue\\":false},\\"spreadStringValue\\":\\"f\\"}}
+*/
+
+<template>
+  <div></div>
+</template>"
+`;
+
+exports[`Vue > jsx > Typescript Test > componentWithContext 1`] = `
+"<template>
+  {{ foo.value }}
+</template>
+
+<script setup lang=\\"ts\\">
+import { inject, provide } from \\"vue\\";
+
+import Context1 from \\"@dummy/1\\";
+import Context2 from \\"@dummy/2\\";
+
+export interface ComponentWithContextProps {
+  content: string;
+}
+
+const props = defineProps<ComponentWithContextProps>();
+
+const foo = inject(Context1.key);
+
+provide(Context1.key, {
+  foo: \\"bar\\",
+  content() {
+    return props.content;
+  },
+});
+provide(Context2.key, { bar: \\"baz\\" });
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > componentWithContextMultiRoot 1`] = `
+"<template>
+  {{ foo.value }}
+  <div>other</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { inject, provide } from \\"vue\\";
+
+import Context1 from \\"@dummy/1\\";
+import Context2 from \\"@dummy/2\\";
+
+export interface ComponentWithContextProps {
+  content: string;
+}
+
+const props = defineProps<ComponentWithContextProps>();
+
+const foo = inject(Context1.key);
+
+provide(Context1.key, {
+  foo: \\"bar\\",
+  content() {
+    return props.content;
+  },
+});
+provide(Context2.key, { bar: \\"baz\\" });
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > contentState 1`] = `
+"<template>
+  <div>setting context</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { provide } from \\"vue\\";
+
+import BuilderContext from \\"@dummy/context.js\\";
+
+const props = defineProps([\\"content\\", \\"customComponents\\"]);
+
+provide(BuilderContext.key, {
+  content: props.content,
+  registeredComponents: props.customComponents,
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > defaultProps 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button
+        type=\\"button\\"
+        @click=\\"async (event) => onClick()\\"
+        v-bind=\\"attributes\\"
+      >
+        {{ buttonText }}
+      </button>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface ButtonProps {
+  attributes?: any;
+  text?: string;
+  buttonText?: string; // no default value
+
+  link?: string;
+  openLinkInNewTab?: boolean;
+  onClick?: () => void;
+}
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  link: \\"https://builder.io/\\",
+  attributes: undefined,
+  openLinkInNewTab: false,
+  text: \\"default text\\",
+  onClick: () => {
+    console.log(\\"hi\\");
+  },
+  buttonText: undefined,
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > defaultPropsOutsideComponent 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"link\\">
+      <a
+        :href=\\"link\\"
+        :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+        v-bind=\\"attributes\\"
+        >{{ text }}</a
+      >
+    </template>
+
+    <template v-if=\\"!link\\">
+      <button
+        type=\\"button\\"
+        @click=\\"async (event) => onClick(event)\\"
+        v-bind=\\"attributes\\"
+      >
+        {{ text }}
+      </button>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface ButtonProps {
+  attributes?: any;
+  text?: string;
+  link?: string;
+  openLinkInNewTab?: boolean;
+  onClick: () => void;
+}
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  link: \\"https://builder.io/\\",
+  attributes: undefined,
+  openLinkInNewTab: false,
+  text: \\"default text\\",
+  onClick: () => {},
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > defaultValsWithTypes 1`] = `
+"<template>
+  <div>Hello {{ name || DEFAULT_VALUES.name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+const DEFAULT_VALUES: Props = {
+  name: \\"Sami\\",
+};
+
+type Props = {
+  name: string;
+};
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > eventInputAndChange 1`] = `
+"<template>
+  <div>
+    <input
+      class=\\"input\\"
+      :value=\\"name\\"
+      @input=\\"async (event) => (name = event.target.value)\\"
+      @change=\\"async (event) => (name = event.target.value)\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+</script>
+
+<style scoped>
+.input {
+  color: red;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > eventProps 1`] = `
+"<template>
+  <button @click=\\"async (event) => handleClick()\\">Test</button>
+</template>
+
+<script setup lang=\\"ts\\">
+import { EventProps, EventState } from \\"./event-props.type\\";
+
+const props = defineProps<EventProps>();
+
+function handleClick(): ReturnType<EventState[\\"handleClick\\"]> {
+  if (props.onGetVoid) {
+    props.onGetVoid();
+  }
+
+  if (props.onEnter) {
+    console.log(props.onEnter());
+  }
+
+  if (props.onPass) {
+    props.onPass(\\"test\\");
+  }
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > expressionState 1`] = `
+"<template>
+  <div>{{ refToUse }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const props = defineProps([\\"componentRef\\"]);
+const refToUse = ref(
+  !(props.componentRef instanceof Function) ? props.componentRef : null
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > figmaMeta 1`] = `
+"/** useMetadata:
+{\\"figma\\":{\\"name\\":\\"def-button-beta-outlined\\",\\"url\\":\\"https://www.figma.com/xxx\\",\\"props\\":{\\"iconSmall\\":{\\"type\\":\\"instance\\",\\"key\\":\\"📍
+Icon Small\\"},\\"iconMedium\\":{\\"type\\":\\"instance\\",\\"key\\":\\"📍 Icon
+Medium\\"},\\"label\\":{\\"type\\":\\"string\\",\\"key\\":\\"✏️
+Label\\"},\\"icon\\":{\\"type\\":\\"boolean\\",\\"key\\":\\"👁️
+Icon\\",\\"value\\":{\\"false\\":false,\\"true\\":\\"placeholder\\"}},\\"interactiveState\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Interactive
+State\\",\\"value\\":{\\"(Def)
+Enabled\\":false,\\"Hovered\\":false,\\"Pressed\\":false,\\"Focused\\":false,\\"Disabled\\":\\"true\\"}},\\"size\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Size\\",\\"value\\":{\\"(Def)
+Medium\\":false,\\"Small\\":\\"small\\"}},\\"width\\":{\\"type\\":\\"enum\\",\\"key\\":\\"Width\\",\\"value\\":{\\"(Def)
+Auto Width\\":false,\\"Full Width\\":\\"full\\"}}}}} */
+
+<template>
+  <button
+    :data-icon=\\"icon\\"
+    :data-disabled=\\"interactiveState\\"
+    :data-width=\\"width\\"
+    :data-size=\\"size\\"
+  >
+    {{ label }}
+  </button>
+</template>
+
+<script setup lang=\\"ts\\">
+const props = defineProps([
+  \\"icon\\",
+  \\"interactiveState\\",
+  \\"width\\",
+  \\"size\\",
+  \\"label\\",
+]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > functionProps 1`] = `
+"<template>
+  <p
+    :f=\\"() => x\\"
+    :f1=\\"(x) => x\\"
+    :f2=\\"(x) => {}\\"
+    :f3=\\"
+      function () {
+        return x;
+      }
+    \\"
+    :f4=\\"
+      function (x) {
+        return x;
+      }
+    \\"
+    :f5=\\"
+      function (x) {
+        return;
+      }
+    \\"
+    :f6=\\"
+      function () {
+        return;
+      }
+    \\"
+    :f7=\\"(a, b, c) => a + b + c\\"
+  ></p>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface MyBasicComponentProps {
+  id: string;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > getterState 1`] = `
+"<template>
+  <div>
+    <p>{{ foo2 }}</p>
+    <p>{{ bar }}</p>
+    <p>{{ baz(1) }}</p>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed } from \\"vue\\";
+
+export interface ButtonProps {
+  foo: string;
+}
+
+const props = defineProps<ButtonProps>();
+
+const foo2 = computed(() => {
+  return props.foo + \\"foo\\";
+});
+const bar = computed(() => {
+  return \\"bar\\";
+});
+
+function baz(i: number) {
+  return i + foo2.length;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > import types 1`] = `
+"<template>
+  <RenderBlock
+    v-bind=\\"getRenderContentProps(renderContentProps.block, 0)\\"
+  ></RenderBlock>
+</template>
+
+<script setup lang=\\"ts\\">
+import { BuilderContent, GetContentOptions } from \\"@builder.io/sdk\\";
+import RenderBlock, { RenderBlockProps } from \\"./builder-render-block.raw\\";
+
+type RenderContentProps = {
+  options?: GetContentOptions;
+  content: BuilderContent;
+  renderContentProps: RenderBlockProps;
+};
+
+const props = defineProps<RenderContentProps>();
+
+function getRenderContentProps(block, index) {
+  return {
+    block: block,
+    index: index,
+  };
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > layerName 1`] = `
+"<template>
+  <section>
+    <div class=\\"layer-name\\">
+      Hello! I can run in React, Vue, Solid, or Liquid!
+    </div>
+  </section>
+</template>
+
+
+
+<style scoped>
+.layer-name {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > multipleOnUpdate 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender\\");
+});
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender as well\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > multipleOnUpdateWithDeps 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+const a = ref(\\"a\\");
+const b = ref(\\"b\\");
+const c = ref(\\"c\\");
+const d = ref(\\"d\\");
+
+watch(
+  () => [a.value, b.value],
+  () => {
+    console.log(\\"Runs when a or b changes\\", a.value, b.value);
+
+    if (a.value === \\"a\\") {
+      a.value = \\"b\\";
+    }
+  },
+  { immediate: true }
+);
+watch(
+  () => [c.value, d.value],
+  () => {
+    console.log(\\"Runs when c or d changes\\", c.value, d.value);
+
+    if (a.value === \\"a\\") {
+      a.value = \\"b\\";
+    }
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > multipleSpreads 1`] = `
+"<template>
+  <input v-bind=\\"{ ...attrs, ...$props }\\" />
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const attrs = ref({
+  hello: \\"world\\",
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > nestedShow 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\">
+    <template v-if=\\"!conditionB\\">
+      <div>if condition A and condition B</div>
+    </template>
+
+    <template v-else>
+      <div>else-condition-B</div>
+    </template>
+  </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Props {
+  conditionA: boolean;
+  conditionB: boolean;
+}
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > nestedStyles 1`] = `
+"<template>
+  <div class=\\"div\\">Hello world</div>
+</template>
+
+
+
+<style scoped>
+.div {
+  display: flex;
+  --bar: red;
+  color: var(--bar);
+}
+@media (max-width: env(--mobile)) {
+  .div {
+    display: block;
+  }
+}
+.div:hover {
+  display: flex;
+}
+.div:active {
+  display: inline;
+}
+.div .nested-selector {
+  display: grid;
+}
+.div .nested-selector:hover {
+  display: block;
+}
+.div.nested-selector:active {
+  display: inline-block;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > normalizeLayerNames 1`] = `
+"<template>
+  <section>
+    <div>Emoji</div>
+    <div>Dashes</div>
+    <div>CamelCase</div>
+    <div>Special chars</div>
+    <div>Special chars with dashes</div>
+    <div class=\\"css-0\\">Single Number</div>
+    <div class=\\"css-123\\">Multiple Numbers</div>
+    <div class=\\"name-123\\">Chars with numbers at end</div>
+    <div class=\\"name\\">Chars with numbers at start</div>
+    <div class=\\"name-789\\">Numnbers separated by dash</div>
+    <div>Emoji</div>
+    <div data-name=\\"1\\" class=\\"div\\">Number</div>
+  </section>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface MyNormalizedLayerNamesComponentProps {
+  id: string;
+}
+</script>
+
+<style scoped>
+.css-0 {
+  margin: 10px;
+}
+.css-123 {
+  padding: 10px;
+}
+.name-123 {
+  border: 1px solid;
+}
+.name {
+  color: red;
+}
+.name-789 {
+  background: blue;
+}
+.div {
+  background: blue;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onEvent 1`] = `
+"<template>
+  <div
+    class=\\"builder-embed\\"
+    ref=\\"elem\\"
+    @initeditingbldr=\\"async (event) => elem_onInitEditingBldr(event)\\"
+  >
+    <div>Test</div>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, ref } from \\"vue\\";
+
+const elem = ref<HTMLDivElement>(null);
+
+onMounted(() => {
+  elem.value.dispatchEvent(new CustomEvent(\\"initEditingBldr\\"));
+});
+
+function foo(event) {
+  console.log(\\"test2\\");
+}
+function elem_onInitEditingBldr(event) {
+  console.log(\\"test\\");
+  foo(event);
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onInit & onMount 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted } from \\"vue\\";
+
+console.log(\\"onInit\\");
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onInit 1`] = `
+"<template>
+  <div>Default name defined by parent {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+export const defaultValues = {
+  name: \\"PatrickJS\\",
+};
+
+type Props = {
+  name: string;
+};
+
+const props = defineProps<Props>();
+const name = ref(\\"\\");
+
+name.value = defaultValues.name.value || props.name.value;
+console.log(\\"set defaults with props\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onInitPlain 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+console.log(\\"onInit\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onMount 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, onUnmounted } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"Runs on mount\\");
+});
+onUnmounted(() => {
+  console.log(\\"Runs on unMount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onMountMultiple 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"Runs on mount\\");
+});
+onMounted(() => {
+  console.log(\\"Another one runs on Mount\\");
+});
+onMounted(() => {
+  console.log(\\"SSR runs on Mount\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onUpdate 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  console.log(\\"Runs on every update/rerender\\");
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > onUpdateWithDeps 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+type Props = {
+  size: string;
+};
+
+const props = defineProps<Props>();
+const a = ref(\\"a\\");
+const b = ref(\\"b\\");
+
+watch(
+  () => [a.value, b.value, props.size],
+  () => {
+    console.log(\\"Runs when a, b or size changes\\", a.value, b.value, props.size);
+  },
+  { immediate: true }
+);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > preserveExportOrLocalStatement 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+const b = 3;
+const foo = () => {};
+export const a = 3;
+export const bar = () => {};
+export function run<T>(value: T) {}
+
+type Types = {
+  s: any[];
+};
+interface IPost {
+  len: number;
+}
+export interface MyBasicComponentProps {
+  id: string;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > preserveTyping 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+export type A = \\"test\\";
+export interface C {
+  n: \\"test\\";
+}
+type B = \\"test2\\";
+interface D {
+  n: \\"test\\";
+}
+export interface MyBasicComponentProps {
+  name: string;
+  age?: number;
+}
+
+const props = defineProps<MyBasicComponentProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > propsDestructure 1`] = `
+"<template>
+  <div>
+    <slot />{{ type }}
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+type Props = {
+  children: any;
+  type: string;
+};
+
+const props = defineProps<Props>();
+const name = ref(\\"Decadef20\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > propsInterface 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Person {
+  name: string;
+  age?: number;
+}
+
+const props = defineProps<Person | never>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > propsType 1`] = `
+"<template>
+  <div>Hello! I can run in React, Vue, Solid, or Liquid! {{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+type Person = {
+  name: string;
+  age?: number;
+};
+
+const props = defineProps<Person>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > referencingFunInsideHook 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onUpdated } from \\"vue\\";
+
+onUpdated(() => {
+  foo({
+    someOption: bar,
+  });
+});
+
+function foo(params) {}
+function bar() {}
+function zoo() {
+  const params = {
+    cb: bar,
+  };
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > renderBlock 1`] = `
+"<template>
+  <template v-if=\\"shouldWrap\\">
+    <template v-if=\\"isEmptyHtmlElement(tag)\\">
+      <component :is=\\"tag\\" v-bind=\\"{ ...attributes, ...actions }\\"></component>
+    </template>
+
+    <template v-if=\\"!isEmptyHtmlElement(tag) && repeatItemData\\">
+      <template :key=\\"index\\" v-for=\\"(data, index) in repeatItemData\\">
+        <RenderRepeatedBlock
+          :repeatContext=\\"data.context\\"
+          :block=\\"data.block\\"
+        ></RenderRepeatedBlock>
+      </template>
+    </template>
+
+    <template v-if=\\"!isEmptyHtmlElement(tag) && !repeatItemData\\">
+      <component :is=\\"tag\\" v-bind=\\"{ ...attributes, ...actions }\\"
+        ><component
+          :is=\\"renderComponentTag\\"
+          v-bind=\\"renderComponentProps\\"
+        ></component
+        ><template
+          :key=\\"'render-block-' + child.id\\"
+          v-for=\\"(child, index) in childrenWithoutParentComponent\\"
+        >
+          <RenderBlock
+            :block=\\"child\\"
+            :context=\\"childrenContext\\"
+          ></RenderBlock> </template
+        ><template
+          :key=\\"'block-style-' + child.id\\"
+          v-for=\\"(child, index) in childrenWithoutParentComponent\\"
+        >
+          <BlockStyles
+            :block=\\"child\\"
+            :context=\\"childrenContext\\"
+          ></BlockStyles> </template
+      ></component>
+    </template>
+  </template>
+
+  <template v-else>
+    <component
+      :is=\\"renderComponentTag\\"
+      v-bind=\\"renderComponentProps\\"
+    ></component>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed } from \\"vue\\";
+
+import { TARGET } from \\"../../constants/target.js\\";
+import type {
+  BuilderContextInterface,
+  RegisteredComponent,
+} from \\"../../context/types.js\\";
+import { evaluate } from \\"../../functions/evaluate.js\\";
+import { extractTextStyles } from \\"../../functions/extract-text-styles.js\\";
+import { getBlockActions } from \\"../../functions/get-block-actions.js\\";
+import { getBlockComponentOptions } from \\"../../functions/get-block-component-options.js\\";
+import { getBlockProperties } from \\"../../functions/get-block-properties.js\\";
+import { getBlockTag } from \\"../../functions/get-block-tag.js\\";
+import { getProcessedBlock } from \\"../../functions/get-processed-block.js\\";
+import { getReactNativeBlockStyles } from \\"../../functions/get-react-native-block-styles.js\\";
+import type { BuilderBlock } from \\"../../types/builder-block.js\\";
+import type { Nullable } from \\"../../types/typescript.js\\";
+import BlockStyles from \\"./block-styles.vue\\";
+import { isEmptyHtmlElement } from \\"./render-block.helpers.js\\";
+import RenderComponentWithContext from \\"./render-component-with-context.js\\";
+import type { RenderComponentProps } from \\"./render-component.vue\\";
+import RenderComponent from \\"./render-component.vue\\";
+import RenderRepeatedBlock from \\"./render-repeated-block.vue\\";
+import type { RepeatData } from \\"./types.js\\";
+
+export type RenderBlockProps = {
+  block: BuilderBlock;
+  context: BuilderContextInterface;
+};
+
+const props = defineProps<RenderBlockProps>();
+
+const component = computed(() => {
+  const componentName = getProcessedBlock({
+    block: props.block,
+    state: props.context.state,
+    context: props.context.context,
+    shouldEvaluateBindings: false,
+  }).component?.name;
+
+  if (!componentName) {
+    return null;
+  }
+
+  const ref = props.context.registeredComponents[componentName];
+
+  if (!ref) {
+    // TODO: Public doc page with more info about this message
+    console.warn(\`
+          Could not find a registered component named \\"\${componentName}\\".
+          If you registered it, is the file that registered it imported by the file that needs to render it?\`);
+    return undefined;
+  } else {
+    return ref;
+  }
+});
+const tag = computed(() => {
+  return getBlockTag(useBlock);
+});
+const useBlock = computed(() => {
+  return repeatItemData
+    ? props.block
+    : getProcessedBlock({
+        block: props.block,
+        state: props.context.state,
+        context: props.context.context,
+        shouldEvaluateBindings: true,
+      });
+});
+const actions = computed(() => {
+  return getBlockActions({
+    block: useBlock,
+    state: props.context.state,
+    context: props.context.context,
+  });
+});
+const attributes = computed(() => {
+  const blockProperties = getBlockProperties(useBlock);
+  return {
+    ...blockProperties,
+    ...(TARGET === \\"reactNative\\"
+      ? {
+          style: getReactNativeBlockStyles({
+            block: useBlock,
+            context: props.context,
+            blockStyles: blockProperties.style,
+          }),
+        }
+      : {}),
+  };
+});
+const shouldWrap = computed(() => {
+  return !component?.noWrap;
+});
+const renderComponentProps = computed(() => {
+  return {
+    blockChildren: useChildren,
+    componentRef: component?.component,
+    componentOptions: {
+      ...getBlockComponentOptions(useBlock),
+
+      /**
+       * These attributes are passed to the wrapper element when there is one. If \`noWrap\` is set to true, then
+       * they are provided to the component itself directly.
+       */
+      ...(shouldWrap
+        ? {}
+        : {
+            attributes: { ...attributes, ...actions },
+          }),
+      customBreakpoints: childrenContext?.content?.meta?.breakpoints,
+    },
+    context: childrenContext,
+  };
+});
+const useChildren = computed(() => {
+  // TO-DO: When should \`canHaveChildren\` dictate rendering?
+  // This is currently commented out because some Builder components (e.g. Box) do not have \`canHaveChildren: true\`,
+  // but still receive and need to render children.
+  // return state.componentInfo?.canHaveChildren ? state.useBlock.children : [];
+  return useBlock.children ?? [];
+});
+const childrenWithoutParentComponent = computed(() => {
+  /**
+   * When there is no \`componentRef\`, there might still be children that need to be rendered. In this case,
+   * we render them outside of \`componentRef\`.
+   * NOTE: We make sure not to render this if \`repeatItemData\` is non-null, because that means we are rendering an array of
+   * blocks, and the children will be repeated within those blocks.
+   */
+  const shouldRenderChildrenOutsideRef =
+    !component?.component && !repeatItemData;
+  return shouldRenderChildrenOutsideRef ? useChildren : [];
+});
+const repeatItemData = computed(() => {
+  /**
+   * we don't use \`state.useBlock\` here because the processing done within its logic includes evaluating the block's bindings,
+   * which will not work if there is a repeat.
+   */
+  const { repeat, ...blockWithoutRepeat } = props.block;
+
+  if (!repeat?.collection) {
+    return undefined;
+  }
+
+  const itemsArray = evaluate({
+    code: repeat.collection,
+    state: props.context.state,
+    context: props.context.context,
+  });
+
+  if (!Array.isArray(itemsArray)) {
+    return undefined;
+  }
+
+  const collectionName = repeat.collection.split(\\".\\").pop();
+  const itemNameToUse =
+    repeat.itemName || (collectionName ? collectionName + \\"Item\\" : \\"item\\");
+  const repeatArray = itemsArray.map<RepeatData>((item, index) => ({
+    context: {
+      ...props.context,
+      state: {
+        ...props.context.state,
+        $index: index,
+        $item: item,
+        [itemNameToUse]: item,
+        [\`$\${itemNameToUse}Index\`]: index,
+      },
+    },
+    block: blockWithoutRepeat,
+  }));
+  return repeatArray;
+});
+const inheritedTextStyles = computed(() => {
+  if (TARGET !== \\"reactNative\\") {
+    return {};
+  }
+
+  const styles = getReactNativeBlockStyles({
+    block: useBlock,
+    context: props.context,
+    blockStyles: attributes.style,
+  });
+  return extractTextStyles(styles);
+});
+const childrenContext = computed(() => {
+  return {
+    apiKey: props.context.apiKey,
+    state: props.context.state,
+    content: props.context.content,
+    context: props.context.context,
+    registeredComponents: props.context.registeredComponents,
+    inheritedStyles: inheritedTextStyles,
+  };
+});
+const renderComponentTag = computed(() => {
+  if (TARGET === \\"reactNative\\") {
+    return RenderComponentWithContext;
+  } else if (TARGET === \\"vue3\\") {
+    // vue3 expects a string for the component tag
+    return \\"RenderComponent\\";
+  } else {
+    return RenderComponent;
+  }
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > renderContentExample 1`] = `
+"<template>
+  <div class=\\"div\\" @click=\\"async (event) => trackClick(content.id)\\">
+    <RenderBlocks :blocks=\\"content.blocks\\"></RenderBlocks>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, provide, watch } from \\"vue\\";
+
+import BuilderContext from \\"@dummy/context.js\\";
+import {
+  dispatchNewContentToVisualEditor,
+  sendComponentsToVisualEditor,
+  trackClick,
+} from \\"@dummy/injection-js\\";
+import RenderBlocks from \\"@dummy/RenderBlocks.vue\\";
+
+type Props = {
+  customComponents: string[];
+  content: {
+    blocks: any[];
+    id: string;
+  };
+};
+
+const props = defineProps<Props>();
+
+provide(BuilderContext.key, {
+  get content() {
+    return 3;
+  },
+  get registeredComponents() {
+    return 4;
+  },
+});
+
+onMounted(() => {
+  sendComponentsToVisualEditor(props.customComponents);
+});
+
+watch(
+  () => [props.content],
+  () => {
+    dispatchNewContentToVisualEditor(props.content);
+  },
+  { immediate: true }
+);
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: columns;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > rootFragmentMultiNode 1`] = `
+"<template>
+  <template v-if=\\"link\\">
+    <a
+      :href=\\"link\\"
+      :target=\\"openLinkInNewTab ? '_blank' : undefined\\"
+      v-bind=\\"attributes\\"
+      >{{ text }}</a
+    >
+  </template>
+
+  <template v-if=\\"!link\\">
+    <button type=\\"button\\" v-bind=\\"attributes\\">{{ text }}</button>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface ButtonProps {
+  attributes?: any;
+  text?: string;
+  link?: string;
+  openLinkInNewTab?: boolean;
+}
+
+const props = defineProps<ButtonProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > rootShow 1`] = `
+"<template>
+  <template v-if=\\"foo === 'bar'\\">
+    <div>Bar</div>
+  </template>
+
+  <template v-else>
+    <div>Foo</div>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+export interface RenderStylesProps {
+  foo: string;
+}
+
+const props = defineProps<RenderStylesProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > self-referencing component 1`] = `
+"<template>
+  <div>
+    {{ name }}
+    <template v-if=\\"name === 'Batman'\\">
+      <MyComponent name=\\"Bruce Wayne\\"></MyComponent>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+const props = defineProps([\\"name\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > self-referencing component with children 1`] = `
+"<template>
+  <div>
+    {{ name }}<slot />
+    <template v-if=\\"name === 'Batman'\\">
+      <MyComponent name=\\"Bruce\\"><div>Wayne</div></MyComponent>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+const props = defineProps([\\"name\\", \\"children\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > setState 1`] = `
+"<template>
+  <div><button @click=\\"async (event) => someFn()\\">Click me</button></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const n = ref([\\"123\\"]);
+
+function someFn() {
+  n.value[0] = \\"123\\";
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > showExpressions 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"conditionA\\"> Content0 </template>
+
+    <template v-else> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentB </template>
+
+    <template v-else>
+      {{ undefined }}
+    </template>
+
+    <template v-if=\\"conditionA\\">
+      {{ undefined }}
+    </template>
+
+    <template v-else> ContentB </template>
+
+    <template v-if=\\"conditionA\\"> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> </template>
+
+    <template v-else> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> ContentE </template>
+
+    <template v-else> hello </template>
+
+    <template v-if=\\"conditionA\\"> hello </template>
+
+    <template v-else> ContentE </template>
+
+    <template v-if=\\"conditionA\\"> ContentF </template>
+
+    <template v-else> 123 </template>
+
+    <template v-if=\\"conditionA\\"> 123 </template>
+
+    <template v-else> ContentF </template>
+
+    <template v-if=\\"conditionA === 'Default'\\"> 4mb </template>
+
+    <template v-else>
+      <template v-if=\\"conditionB === 'Complete'\\"> 20mb </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-if=\\"conditionA === 'Default'\\">
+      <template v-if=\\"conditionB === 'Complete'\\"> 20mb </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-else> 4mb </template>
+
+    <template v-if=\\"conditionA === 'Default'\\">
+      <template v-if=\\"conditionB === 'Complete'\\">
+        <div>complete</div>
+      </template>
+
+      <template v-else> 9mb </template>
+    </template>
+
+    <template v-else>
+      <template v-if=\\"conditionC === 'Complete'\\"> dff </template>
+
+      <template v-else>
+        <div>complete else</div>
+      </template>
+    </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Props {
+  conditionA: boolean;
+  conditionB: boolean;
+}
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > showWithFor 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\">
+    <template :key=\\"idx\\" v-for=\\"(item, idx) in items\\">
+      <div>{{ item }}</div>
+    </template>
+  </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Props {
+  conditionA: boolean;
+  items: string[];
+}
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > showWithOtherValues 1`] = `
+"<template>
+  <div>
+    <template v-if=\\"conditionA\\"> ContentA </template>
+
+    <template v-if=\\"conditionA\\"> ContentB </template>
+
+    <template v-else>
+      {{ undefined }}
+    </template>
+
+    <template v-if=\\"conditionA\\"> ContentC </template>
+
+    <template v-if=\\"conditionA\\"> ContentD </template>
+
+    <template v-if=\\"conditionA\\"> ContentE </template>
+
+    <template v-else> hello </template>
+
+    <template v-if=\\"conditionA\\"> ContentF </template>
+
+    <template v-else> 123 </template>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Props {
+  conditionA: boolean;
+}
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > showWithRootText 1`] = `
+"<template>
+  <template v-if=\\"conditionA\\"> ContentA </template>
+
+  <template v-else>
+    <div>else-condition-A</div>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+interface Props {
+  conditionA: boolean;
+}
+
+const props = defineProps<Props>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > signalsOnUpdate 1`] = `
+"<template>
+  <div class=\\"test div\\">{{ id }}{{ foo.bar.baz }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { watch } from \\"vue\\";
+
+type Props = {
+  id: string;
+  foo: {
+    bar: {
+      baz: number;
+    };
+  };
+};
+
+const props = defineProps<Props>();
+
+watch(
+  () => [props.id, props.foo.bar.baz],
+  () => {
+    console.log(\\"props.id changed\\", props.id);
+    console.log(\\"props.foo.value.bar.baz changed\\", props.foo.bar.baz);
+  },
+  { immediate: true }
+);
+</script>
+
+<style scoped>
+.div {
+  padding: 10px;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > spreadAttrs 1`] = `
+"<template>
+  <input v-bind=\\"attrs\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Typescript Test > spreadNestedProps 1`] = `
+"<template>
+  <input v-bind=\\"nested\\" />
+</template>
+
+<script setup lang=\\"ts\\">
+const props = defineProps([\\"nested\\"]);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > spreadProps 1`] = `
+"<template>
+  <input v-bind=\\"$props\\" />
+</template>"
+`;
+
+exports[`Vue > jsx > Typescript Test > store-async-function 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+async function arrowFunction() {
+  return Promise.resolve();
+}
+async function namedFunction() {
+  return Promise.resolve();
+}
+async function fetchUsers() {
+  return Promise.resolve();
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > string-literal-store 1`] = `
+"<template>
+  <div>{{ foo }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const foo = ref(123);
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > string-literal-store-kebab 1`] = `
+"<template>
+  <div>{{ \\"foo-bar\\" }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\"
+
+
+
+
+
+
+
+
+
+const foo-bar= ref(123)
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > styleClassAndCss 1`] = `
+"<template>
+  <div
+    class=\\"builder-column div\\"
+    :style=\\"{
+      width: '100%',
+    }\\"
+  ></div>
+</template>
+
+
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > stylePropClassAndCss 1`] = `
+"<template>
+  <div :style=\\"attributes.style\\" :class=\\"attributes.className + ' div'\\"></div>
+</template>
+
+<script setup lang=\\"ts\\">
+const props = defineProps([\\"attributes\\"]);
+</script>
+
+<style scoped>
+.div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > subComponent 1`] = `
+"<template>
+  <Foo></Foo>
+</template>
+
+<script setup lang=\\"ts\\">
+import Foo from \\"./foo-sub-component.vue\\";
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > svgComponent 1`] = `
+"<template>
+  <svg
+    fill=\\"none\\"
+    role=\\"img\\"
+    :viewBox=\\"'0 0 ' + 42 + ' ' + 42\\"
+    :width=\\"42\\"
+    :height=\\"42\\"
+  >
+    <defs>
+      <filter id=\\"prefix__filter0_f\\" filterUnits=\\"userSpaceOnUse\\">
+        <feFlood result=\\"BackgroundImageFix\\"></feFlood>
+        <feBlend
+          in=\\"SourceGraphic\\"
+          in2=\\"BackgroundImageFix\\"
+          result=\\"shape\\"
+        ></feBlend>
+        <feGaussianBlur
+          result=\\"effect1_foregroundBlur\\"
+          :stdDeviation=\\"7\\"
+        ></feGaussianBlur>
+      </filter>
+    </defs>
+  </svg>
+</template>"
+`;
+
+exports[`Vue > jsx > Typescript Test > typeDependency 1`] = `
+"<template>
+  <div>{{ foo }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import type { Foo } from \\"./foo-type\\";
+import type { Foo as Foo2 } from \\"./type-export.vue\\";
+
+export type TypeDependencyProps = {
+  foo: Foo;
+  foo2: Foo2;
+};
+
+const props = defineProps<TypeDependencyProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > typeExternalProps 1`] = `
+"<template>
+  <div>Hello {{ name }}!</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { FooProps } from \\"./foo-props\\";
+
+const props = defineProps<FooProps>();
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > typeExternalStore 1`] = `
+"<template>
+  <div>Hello {{ _name }}!</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+import { FooStore } from \\"./foo-store\\";
+
+const _name = ref<FooStore[\\"_name\\"]>(\\"test\\");
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > typeGetterStore 1`] = `
+"<template>
+  <div>Hello {{ name }}!</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, ref } from \\"vue\\";
+
+type GetterStore = {
+  getName: () => string;
+  name: string;
+  get test(): string;
+};
+
+const name = ref<GetterStore[\\"name\\"]>(\\"test\\");
+
+const test = computed(() => {
+  return \\"test\\";
+});
+
+function getName(): ReturnType<GetterStore[\\"getName\\"]> {
+  if (name.value === \\"a\\") {
+    return \\"b\\";
+  }
+
+  return name.value;
+}
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > use-style 1`] = `
+"<template>
+  <button type=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  background: blue;
+  color: white;
+  font-size: 12px;
+  outline: 1px solid black;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > use-style-and-css 1`] = `
+"<template>
+  <button type=\\"button\\" class=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  font-size: 12px;
+  outline: 1px solid black;
+}
+
+.button {
+  background: blue;
+  color: white;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > use-style-outside-component 1`] = `
+"<template>
+  <button type=\\"button\\">Button</button>
+</template>
+
+
+
+<style scoped>
+button {
+  background: blue;
+  color: white;
+  font-size: 12px;
+  outline: 1px solid black;
+}
+</style>"
+`;
+
+exports[`Vue > jsx > Typescript Test > useTarget 1`] = `
+"<template>
+  <div>{{ name }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, onMounted, ref } from \\"vue\\";
+
+const lastName = ref(\\"bar\\");
+const foo = ref(\\"bar\\");
+
+onMounted(() => {
+  console.log(foo.value);
+  foo.value = \\"bar\\";
+});
+
+const name = computed(() => {
+  const prefix = \\"v\\";
+  return prefix + \\"foo\\";
+});
+</script>"
+`;
+
+exports[`Vue > jsx > Typescript Test > webComponent 1`] = `
+"<template>
+  <swiper-container slides-per-view=\\"3\\" navigation=\\"true\\" pagination=\\"true\\"
+    ><swiper-slide>Slide 1</swiper-slide><swiper-slide>Slide 2</swiper-slide
+    ><swiper-slide>Slide 3</swiper-slide></swiper-container
+  >
+</template>
+
+<script setup lang=\\"ts\\">
+import { register } from \\"swiper/element/bundle\\";
+
+register();
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > basic 1`] = `
+"<template>
+  <div>
+    <input
+      @change=\\"async (event) => (name = event.target.value)\\"
+      :value=\\"name\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > bindGroup 1`] = `
+"<template>
+  <div>
+    <input
+      type=\\"radio\\"
+      value=\\"Plain\\"
+      :checked=\\"tortilla === 'Plain'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><input
+      type=\\"radio\\"
+      value=\\"Whole wheat\\"
+      :checked=\\"tortilla === 'Whole wheat'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><input
+      type=\\"radio\\"
+      value=\\"Spinach\\"
+      :checked=\\"tortilla === 'Spinach'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><br /><br /><input
+      type=\\"checkbox\\"
+      value=\\"Rice\\"
+      :checked=\\"fillings === 'Rice'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Beans\\"
+      :checked=\\"fillings === 'Beans'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Cheese\\"
+      :checked=\\"fillings === 'Cheese'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Guac (extra)\\"
+      :checked=\\"fillings === 'Guac (extra)'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    />
+    <p>Tortilla: {{ tortilla }}</p>
+    <p>Fillings: {{ fillings }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const tortilla = ref(\\"Plain\\");
+const fillings = ref([]);
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > bindProperty 1`] = `
+"<template>
+  <input :value=\\"value\\" />
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const value = ref(\\"hello\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > classDirective 1`] = `
+"<template>
+  <input
+    :class=\\"\`form-input \${disabled ? 'disabled' : ''} \${focus ? 'focus' : ''}\`\\"
+  />
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const props = withDefaults(defineProps(), { disabled: undefined });
+const focus = ref(true);
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > context 1`] = `
+"<template>
+  <div>{{ activeTab }}</div>
+</template>
+
+<script setup>
+import { inject, provide, ref } from \\"vue\\";
+
+const activeTab = ref(0);
+
+const disabled = inject(\\"disabled\\");
+
+provide(\\"activeTab\\", activeTab.value);
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > each 1`] = `
+"<template>
+  <ul>
+    <template :key=\\"index\\" v-for=\\"(num, index) in numbers\\">
+      <li>{{ num }}</li>
+    </template>
+  </ul>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const numbers = ref([\\"one\\", \\"two\\", \\"three\\"]);
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > eventHandlers 1`] = `
+"<template>
+  <div>
+    <button @click=\\"async (a) => log('hi')\\">Log</button
+    ><button @click=\\"async (event) => log(event)\\">Log</button
+    ><button @click=\\"async (event) => log(event)\\">Log</button>
+  </div>
+</template>
+
+<script setup>
+function log(msg = \\"hello\\") {
+  console.log(msg);
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > html 1`] = `
+"<template>
+  <div v-html=\\"html\\"></div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const html = ref(\\"<b>bold</b>\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > ifElse 1`] = `
+"<template>
+  <template v-if=\\"show\\">
+    <button @click=\\"async (event) => toggle(event)\\">Hide</button>
+  </template>
+
+  <template v-else>
+    <button @click=\\"async (event) => toggle(event)\\">Show</button>
+  </template>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const show = ref(true);
+
+function toggle() {
+  show.value = !show.value;
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > imports 1`] = `
+"<template>
+  <div>
+    <Button type=\\"button\\" :disabled=\\"disabled\\"><slot /></Button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+import Button from \\"./Button.vue\\";
+
+const disabled = ref(false);
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > lifecycleHooks 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup>
+import { onMounted, onUnmounted, onUpdated } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+onUnmounted(() => {
+  console.log(\\"onDestroy\\");
+});
+
+onUpdated(() => {
+  console.log(\\"onAfterUpdate\\");
+});
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > reactive 1`] = `
+"<template>
+  <div><input :value=\\"name\\" /> Lowercase: {{ lowercaseName }}</div>
+</template>
+
+<script setup>
+import { computed, ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+
+const lowercaseName = computed(() => {
+  return name.value.toLowerCase();
+});
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > reactiveWithFn 1`] = `
+"<template>
+  <div>
+    <input
+      type=\\"number\\"
+      @change=\\"async (event) => (a = event.target.value)\\"
+      :value=\\"a\\"
+    /><input
+      type=\\"number\\"
+      @change=\\"async (event) => (b = event.target.value)\\"
+      :value=\\"b\\"
+    />
+    Result: {{ result }}
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from \\"vue\\";
+
+const a = ref(2);
+const b = ref(5);
+const result = ref(null);
+
+watch(
+  () => [a.value, b.value],
+  () => {
+    calculateResult(a.value, b.value);
+  },
+  { immediate: true }
+);
+function calculateResult(a_, b_) {
+  result.value = a_ * b_;
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Javascript Test > slots 1`] = `
+"<template>
+  <div>
+    <slot>default</slot><slot name=\\"test\\"><div>default</div></slot>
+  </div>
+</template>"
+`;
+
+exports[`Vue > svelte > Javascript Test > style 1`] = `
+"<template>
+  <input class=\\"form-input\\" />
+</template>
+
+
+
+<style scoped>
+input {
+  color: red;
+  font-size: 12px;
+}
+
+.form-input:focus {
+  outline: 1px solid blue;
+}
+</style>"
+`;
+
+exports[`Vue > svelte > Javascript Test > textExpressions 1`] = `
+"<template>
+  <div>
+    normal:
+    {{ a + b }}<br />
+    conditional
+    {{ a > 2 ? \\"hello\\" : \\"bye\\" }}
+  </div>
+</template>
+
+<script setup>
+import { ref } from \\"vue\\";
+
+const a = ref(5);
+const b = ref(12);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > basic 1`] = `
+"<template>
+  <div>
+    <input
+      @change=\\"async (event) => (name = event.target.value)\\"
+      :value=\\"name\\"
+    />
+    Hello! I can run in React, Vue, Solid, or Liquid!
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > bindGroup 1`] = `
+"<template>
+  <div>
+    <input
+      type=\\"radio\\"
+      value=\\"Plain\\"
+      :checked=\\"tortilla === 'Plain'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><input
+      type=\\"radio\\"
+      value=\\"Whole wheat\\"
+      :checked=\\"tortilla === 'Whole wheat'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><input
+      type=\\"radio\\"
+      value=\\"Spinach\\"
+      :checked=\\"tortilla === 'Spinach'\\"
+      @change=\\"async (event) => (tortilla = event.target.value)\\"
+    /><br /><br /><input
+      type=\\"checkbox\\"
+      value=\\"Rice\\"
+      :checked=\\"fillings === 'Rice'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Beans\\"
+      :checked=\\"fillings === 'Beans'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Cheese\\"
+      :checked=\\"fillings === 'Cheese'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    /><input
+      type=\\"checkbox\\"
+      value=\\"Guac (extra)\\"
+      :checked=\\"fillings === 'Guac (extra)'\\"
+      @change=\\"async (event) => (fillings = event.target.value)\\"
+    />
+    <p>Tortilla: {{ tortilla }}</p>
+    <p>Fillings: {{ fillings }}</p>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const tortilla = ref(\\"Plain\\");
+const fillings = ref([]);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > bindProperty 1`] = `
+"<template>
+  <input :value=\\"value\\" />
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const value = ref(\\"hello\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > classDirective 1`] = `
+"<template>
+  <input
+    :class=\\"\`form-input \${disabled ? 'disabled' : ''} \${focus ? 'focus' : ''}\`\\"
+  />
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const props = withDefaults(defineProps<undefined>(), { disabled: undefined });
+const focus = ref(true);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > context 1`] = `
+"<template>
+  <div>{{ activeTab }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { inject, provide, ref } from \\"vue\\";
+
+const activeTab = ref(0);
+
+const disabled = inject(\\"disabled\\");
+
+provide(\\"activeTab\\", activeTab.value);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > each 1`] = `
+"<template>
+  <ul>
+    <template :key=\\"index\\" v-for=\\"(num, index) in numbers\\">
+      <li>{{ num }}</li>
+    </template>
+  </ul>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const numbers = ref([\\"one\\", \\"two\\", \\"three\\"]);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > eventHandlers 1`] = `
+"<template>
+  <div>
+    <button @click=\\"async (a) => log('hi')\\">Log</button
+    ><button @click=\\"async (event) => log(event)\\">Log</button
+    ><button @click=\\"async (event) => log(event)\\">Log</button>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+function log(msg = \\"hello\\") {
+  console.log(msg);
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > html 1`] = `
+"<template>
+  <div v-html=\\"html\\"></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const html = ref(\\"<b>bold</b>\\");
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > ifElse 1`] = `
+"<template>
+  <template v-if=\\"show\\">
+    <button @click=\\"async (event) => toggle(event)\\">Hide</button>
+  </template>
+
+  <template v-else>
+    <button @click=\\"async (event) => toggle(event)\\">Show</button>
+  </template>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const show = ref(true);
+
+function toggle() {
+  show.value = !show.value;
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > imports 1`] = `
+"<template>
+  <div>
+    <Button type=\\"button\\" :disabled=\\"disabled\\"><slot /></Button>
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+import Button from \\"./Button.vue\\";
+
+const disabled = ref(false);
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > lifecycleHooks 1`] = `
+"<template>
+  <div></div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { onMounted, onUnmounted, onUpdated } from \\"vue\\";
+
+onMounted(() => {
+  console.log(\\"onMount\\");
+});
+onUnmounted(() => {
+  console.log(\\"onDestroy\\");
+});
+
+onUpdated(() => {
+  console.log(\\"onAfterUpdate\\");
+});
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > reactive 1`] = `
+"<template>
+  <div><input :value=\\"name\\" /> Lowercase: {{ lowercaseName }}</div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { computed, ref } from \\"vue\\";
+
+const name = ref(\\"Steve\\");
+
+const lowercaseName = computed(() => {
+  return name.value.toLowerCase();
+});
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > reactiveWithFn 1`] = `
+"<template>
+  <div>
+    <input
+      type=\\"number\\"
+      @change=\\"async (event) => (a = event.target.value)\\"
+      :value=\\"a\\"
+    /><input
+      type=\\"number\\"
+      @change=\\"async (event) => (b = event.target.value)\\"
+      :value=\\"b\\"
+    />
+    Result: {{ result }}
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref, watch } from \\"vue\\";
+
+const a = ref(2);
+const b = ref(5);
+const result = ref(null);
+
+watch(
+  () => [a.value, b.value],
+  () => {
+    calculateResult(a.value, b.value);
+  },
+  { immediate: true }
+);
+function calculateResult(a_, b_) {
+  result.value = a_ * b_;
+}
+</script>"
+`;
+
+exports[`Vue > svelte > Typescript Test > slots 1`] = `
+"<template>
+  <div>
+    <slot>default</slot><slot name=\\"test\\"><div>default</div></slot>
+  </div>
+</template>"
+`;
+
+exports[`Vue > svelte > Typescript Test > style 1`] = `
+"<template>
+  <input class=\\"form-input\\" />
+</template>
+
+
+
+<style scoped>
+input {
+  color: red;
+  font-size: 12px;
+}
+
+.form-input:focus {
+  outline: 1px solid blue;
+}
+</style>"
+`;
+
+exports[`Vue > svelte > Typescript Test > textExpressions 1`] = `
+"<template>
+  <div>
+    normal:
+    {{ a + b }}<br />
+    conditional
+    {{ a > 2 ? \\"hello\\" : \\"bye\\" }}
+  </div>
+</template>
+
+<script setup lang=\\"ts\\">
+import { ref } from \\"vue\\";
+
+const a = ref(5);
+const b = ref(12);
+</script>"
+`;

@@ -1,0 +1,21 @@
+{
+  "name": "@builder.io/e2e-solid",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "vite build",
+    "dev": "vite",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@builder.io/e2e-app": "workspace:*",
+    "solid-js": "^1.4.5",
+    "solid-styled-components": "^0.28.4"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^5.3.2",
+    "vite": "^3.2.2",
+    "vite-plugin-solid": "^2.2.6"
+  }
+}
